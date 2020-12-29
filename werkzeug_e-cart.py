@@ -84,6 +84,7 @@ def application(request):
                     </html>
                         ''')
     return Response(''.join(result),mimetype='text/html')
+
 if __name__ == '__main__':
     from werkzeug.serving import run_simple
     run_simple('localhost',4000,application)
