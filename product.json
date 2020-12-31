@@ -1,0 +1,20 @@
+[
+    {
+        "id": "101",
+        "Product1": "T-Shirt",
+        "Qty": "2",
+        "Price":"200"
+    },
+    {
+        "id": "102",
+        "Product1": "Shoes",
+        "Qty": "1",
+        "Price":"300"
+    },
+    {
+        "id": "103",
+        "Product1": "Watch",
+        "Qty": "3",
+        "Price":"300"
+    }
+]

@@ -1,0 +1,44 @@
+<html>
+<head>
+    <title>JSON Test</title>
+    <style>
+    	#myData{
+    		text-align: center;
+    		position:absolute;
+  			width:700px;
+  			height:240px;
+  			padding:10px;
+  			float:right;
+    	}
+    	#myData > div{
+  			float:right;
+  			margin:10px;
+  			align-content: center;
+  		}
+      .myClass{
+         width:200px;
+        height:200px;
+        border:1px solid blue;
+      }    	
+</style>
+</head>
+<body>
+    <div id="myData"></div>
+    <script>
+    		function myJson()
+    		{
+    			alert("Total")
+    		}
+        data = %(data)s
+
+        var mainContainer = document.getElementById("myData");
+        for (var i = 0; i <= data.length; i++) 
+        {	
+
+            		var div = document.createElement("div");
+            		div.innerHTML = '<div class="myClass"><h3>' + data[i].Product1 + '</h3><br/></br>QTY:' + data[i].Qty + '<br/>PRICE:<div>'+data[i].Price+'<br/><br/><input type="button" value="ADD TO CART" onclick="myJson()">';
+            		mainContainer.appendChild(div)
+		    }
+    </script>
+</body>
+</html>
