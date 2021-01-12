@@ -1,11 +1,11 @@
-.task-list {
-  width: 300px;
-  margin: 50px auto;
-  background: aliceblue;
-  padding: 10px;
+#task-list
+{
+	float: left;
+	width: 80%;
+	background-color: lightblue;
 }
-
-.task {
-  font-size: 18px;
-  color: #111111;
-}
+#cart
+{
+	margin-left: 80%;
+	background-color:green; 
+}  
