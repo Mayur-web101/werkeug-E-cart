@@ -1,7 +1,6 @@
 const { Component,Store,mount } = owl;
 const { xml } = owl.tags;
 
-
 export class SignUp extends Component
 {
 	static Sign_Template = xml`
