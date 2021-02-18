@@ -1,8 +1,8 @@
 const { Component, Store, mount } = owl;
+const {qweb} = owl;
 const { RouteComponent } = owl.router
 const { useRef, useDispatch, useState, useStore } = owl.hooks;
 const { whenReady } = owl.utils;
-const {qweb} = owl;
 const { xml } = owl.tags;
 
 import { Content } from "./Content.js";
@@ -17,13 +17,13 @@ const APP_TEMPLATE= xml`
 		<div>
 			<RouteComponent/>
 		</div>
-			<Footer/>
+		<Footer/>
 	</div>`;
 
 class Home extends Component
 {
 	static template = APP_TEMPLATE;
-	static components = {Content,Footer,Login,SignUp,NavBar,RouteComponent};
+	static components = {Content,Footer,Login,NavBar,RouteComponent,SignUp};
 } 
 	
 const ROUTES = [

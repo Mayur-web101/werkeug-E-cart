@@ -4,26 +4,35 @@ const { xml } = owl.tags;
 export class SignUp extends Component
 {
 	static template = xml`
-	<div>
-		<div>
-				<h2>Sign Up</h2>
-				<div>
-					<label for="email" class="email">USERNAME</label>
-					<input id="email" placeholder="Email OR Mobile" type="text"></input>
+		<div class="box">  
+			<h2>SIGN UP</h2>
+				<p></p>
+			<form>    
+				<div class="inputBox">
+					<input id="email"  type="text"></input>
+					<label>User Name</label>
 				</div>
-				<div>
-					<label for="password" class="password">PASSWORD</label>
-					<input id="password" placeholder="password" type="password"></input>
+				<div class="inputBox">
+					<input id="password" type="password"></input>
+					<label>Password</label>
 				</div>
-				<div>
-					<label for="conpassword" class="conpassword">Confirm PASSWORD</label>
-					<input id="conpassword" placeholder="confrim password" type="password"></input>
+				<div class="inputBox">
+					<input id="password" type="password"></input>
+					<label>Conf Password</label>
 				</div>
-				<div>
-					<label for="mobile" class="mobile">MOBILE</label>
-					<input id="mobile" class="mobile" placeholder="Mobile" type="number"></input>
+				<div class="inputBox">
+					<input id="password" type="password"></input>
+					<label>Mobile No</label>
 				</div>
-				<button>Submit</button>
-		</div>
-	</div>`;
+				<div class="inputBox">
+					<select class="form-control">
+						<option>Select Role</option>
+						<option>Farmer</option>
+						<option>Customer</option>
+						<option>Admin</option>
+					</select>
+				</div>
+				<button type="button" class="btn btn-primary">SIGN UP</button>
+			</form>
+		</div>`;
 }
