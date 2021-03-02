@@ -25,9 +25,14 @@ export class NavBar extends Component
   signup(){
     return this.env.router.navigate({ to: 'SIGN_UP' });
   }
-  logout()
+   async onClickLogout(ev)
   {
-    return this.env.router.navigate({ to: 'LOGIN'})
+
+    this.valid = ev.valid;  
+    const session_id = localStorage.getItem('session_id');
+    localStorage.removeItem('session_id', session_id);
+    await this.env.router.navigate({ to: 'Home' });
+    
   }
 
 	static template = xml `
@@ -42,7 +47,7 @@ export class NavBar extends Component
           <button type="button" class="btn btn-default navbar-btn">FARMER DETAIL</button>
         </ul>
           <form class="navbar-form navbar-left">
-          <button type="button" t-on-click="logout" class="btn btn-default navbar-btn">LOGOUT</button>
+          <button type="button" t-on-click="onClickLogout" class="btn btn-default navbar-btn">LOGOUT</button>
         </form>
       </t>
       <t t-else="">
