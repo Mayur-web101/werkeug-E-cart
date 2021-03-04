@@ -25,15 +25,23 @@ export class NavBar extends Component
   signup(){
     return this.env.router.navigate({ to: 'SIGN_UP' });
   }
-   async onClickLogout(ev)
-  {
+
+  async onClickLogout(ev){
 
     this.valid = ev.valid;  
     const session_id = localStorage.getItem('session_id');
+    const xhr = new window.XMLHttpRequest();
+        xhr.open('POST', '/do_logout');
+        xhr.send(JSON.stringify({'session_id': session_id}));
+        xhr.onload = async () => {
+          console.log(xhr);
+        }
     localStorage.removeItem('session_id', session_id);
     await this.env.router.navigate({ to: 'Home' });
-    
   }
+
+  
+
 
 	static template = xml `
     <nav class="navbar navbar-default" style="border:1px solid #15420A;">
@@ -47,7 +55,7 @@ export class NavBar extends Component
           <button type="button" class="btn btn-default navbar-btn">FARMER DETAIL</button>
         </ul>
           <form class="navbar-form navbar-left">
-          <button type="button" t-on-click="onClickLogout" class="btn btn-default navbar-btn">LOGOUT</button>
+            <button type="button" t-on-click="onClickLogout" class="btn btn-default navbar-btn">LOGOUT</button>
         </form>
       </t>
       <t t-else="">

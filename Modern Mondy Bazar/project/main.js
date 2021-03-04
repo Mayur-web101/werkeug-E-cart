@@ -1,74 +1,89 @@
-const { Component, Store, mount } = owl;
-const { EventBus } = owl.core;
-const {qweb} = owl;
-const { RouteComponent } = owl.router
-const { useRef, useDispatch, useState, useStore } = owl.hooks;
-const { whenReady } = owl.utils;
-const { xml } = owl.tags;
+#!/usr/bin/env python3
 
-import { Content } from "./Content.js";
-import { Cropedetail } from "./Cropedetail.js";
-import { Footer } from "./Footer.js";
-import { Login } from "./login.js";
-import { NavBar } from "./navBar.js";
-import { SignUp } from "./signup.js";
+import json
+import psycopg2
+import threading
+import time
+import uuid
 
-const APP_TEMPLATE= xml`
-	<div>
-		<NavBar/>
-		<div>
-			<RouteComponent/>
-		</div>
-		<Footer/>
-	</div>`;
+from DBconnection import Connection
+from http.server import SimpleHTTPRequestHandler, HTTPServer
+from psycopg2 import Error
+    
 
-  
-class Home extends Component
-{
-	static template = APP_TEMPLATE;
-	static components = {Content,Footer,Login,NavBar,RouteComponent,SignUp};
+class myHandler(SimpleHTTPRequestHandler):
+    db_connection = Connection()
 
-	 async willStart() {
-    const session_id = localStorage.getItem('session_id');
-    if (session_id) {
-        // const sessionPromise = new Promise((resolve) => {return resolve});
-        // debugger
-        const xhr = new window.XMLHttpRequest();
-        xhr.open('POST', '/session_validate');
-        xhr.send(JSON.stringify({'session_id': session_id}));
-        xhr.onload = async () => {
-            console.log(xhr)
-            // Promise.resolve(sessionPromise);
-        };
-        // await sessionPromise;
-        // console.log('Promise Resolved')
-    }
-}
+    # def __init__(self, *args, directory=None, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     import pdb
+    #     pdb.set_trace()
+    #     self.
 
-} 
-	
-const ROUTES = [
-	{ name: "LOGIN", path: "/login", component: Login },
-	{ name: "SIGN_UP", path: "/signup", component: SignUp },
-	{ name: "Home", path: "/", component: Content },
-	{ name: "cropedetail", path:"/cropedetail", component: Cropedetail },
-	];
-	
-function makeEnvironment() 
-{
-    const env = { qweb };
-    env.router = new owl.router.Router(env, ROUTES);
-    env.router.start();
-    env.bus = new EventBus();
-    return env;
-}
-Home.env = makeEnvironment();
+    # Handler for the GET requests
+    def do_POST(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/json')
+        self.end_headers()
+        if self.path == '/do_signup':
+            data = self.rfile.read(int(self.headers.get('Content-Length')))
+            data = json.loads(data)
+            self.db_connection.create_user(data)
+            # return self.wfile.write(True)
+        elif self.path == '/do_login':
+            data = self.rfile.read(int(self.headers.get('Content-Length')))
+            data = json.loads(data)
+            user_data = self.db_connection.user_exists(data)
+            if user_data is None:
+                return self.wfile.write(json.dumps({'credentials': False}).encode())
+            else:
+                session_id = str(uuid.uuid4())
+                self.db_connection.create_user_session(session_id, user_data[0])
+                return self.wfile.write(json.dumps({'session_id': session_id}).encode())
+        elif self.path == '/session_validate':
+            data = self.rfile.read(int(self.headers.get('Content-Length')))
+            data = json.loads(data)
+            user = self.db_connection.session_validate(data)
+            if (len(user)):
+                return self.wfile.write(json.dumps({'valid': True}).encode())
+            else:
+                return self.wfile.write(json.dumps({'valid': False}).encode())
+        elif self.path == '/do_logout':
+            data = self.rfile.read(int(self.headers.get('Content-Length')))
+            data = json.loads(data)
+            print(data)
+            user_data = self.db_connection.user_logout(data)
+            print(user_data)
+            return self.wfile.write(json.dumps({'logout': "done"}).encode())
 
-async function setup()
-{
-	const home=new Home();
-	//await home.env.router.navigate({to: 'navBar'});
-	home.mount(document.body);
-	
-}
-whenReady(setup);
+
+
+    def do_GET(self):
+        if self.path == '/':
+            with open('index.html') as f:
+                self.send_response(200)
+                self.send_header('Content-type', 'text/html')
+                self.end_headers()
+                self.wfile.write(f.read().encode())
+        else:
+            super(myHandler, self).do_GET()
+            
+def start_server():
+    SimpleHTTPRequestHandler.extensions_map['.js'] = 'application/javascript'
+    httpd = HTTPServer(('0.0.0.0', 3900), myHandler)
+    httpd.serve_forever()
+
+url = 'http://127.0.0.1:3900'
+
+if __name__ == "__main__":
+    print("----------------------")
+    print("----------------------")
+    print("Server running on: {}".format(url))
+    threading.Thread(target=start_server, daemon=True).start()
+
+    while True:
+        try:
+            time.sleep(1)
+        except KeyboardInterrupt:
+            httpd.server_close()
+            quit(0)
