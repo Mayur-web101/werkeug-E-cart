@@ -51,8 +51,26 @@ class myHandler(SimpleHTTPRequestHandler):
 
 
     def do_GET(self):
-        if self.path == '/':
+       if self.path in ['/', '/signup', '/login', '/home']:
             with open('index.html') as f:
+		Cookie = self.headers.get('Cookie')
+                session_id = False
+                html = f.read()
+                session_info = {
+                    'user_id': None,
+                    'is_valid': False,
+                }
+                if Cookie:
+                    session_cookie = parse_qs(Cookie.replace(' ', ''))
+                    if session_cookie.get('session_id'):
+                        session_id = session_cookie.get('session_id')[0]
+                        user = self.db_connection.session_validate({'session_id': session_id})
+                        if user and len(user):
+                            session_info = {
+                                'user_id': user[0],
+                                'is_valid': True,
+                            }
+                html = html.replace('$session_info', json.dumps(session_info))
                 self.send_response(200)
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()

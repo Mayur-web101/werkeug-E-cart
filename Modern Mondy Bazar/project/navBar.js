@@ -35,6 +35,7 @@ export class NavBar extends Component
         xhr.send(JSON.stringify({'session_id': session_id}));
         xhr.onload = async () => {
           console.log(xhr);
+	  document.cookie="";
         }
     localStorage.removeItem('session_id', session_id);
     await this.env.router.navigate({ to: 'Home' });
