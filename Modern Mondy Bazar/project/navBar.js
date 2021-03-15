@@ -52,8 +52,9 @@ export class NavBar extends Component
       <t t-if="valid">
         <ul class="nav nav-pills">
           <button type="button" t-on-click="home" class="btn btn-default navbar-btn">HOME</button>
-          <button type="button" class="btn btn-default navbar-btn">CROPE DETAIL</button>
-          <button type="button" class="btn btn-default navbar-btn">FARMER DETAIL</button>
+<button type="button" t-on-click="cropdetail" class="btn btn-default navbar-btn mx-2">CROPE DETAIL</button>
+            <button type="button" class="btn btn-default navbar-btn mx-2">STAGE ACTIVITY</button>
+            <button type="button" class="btn btn-default navbar-btn mx-2">ORDER</button>
         </ul>
           <form class="navbar-form navbar-left">
             <button type="button" t-on-click="onClickLogout" class="btn btn-default navbar-btn">LOGOUT</button>
