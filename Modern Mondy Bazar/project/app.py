@@ -49,6 +49,17 @@ class myHandler(SimpleHTTPRequestHandler):
             else:
                 return self.wfile.write(json.dumps({'valid': False}).encode())
 
+	elif self.path == '/do_logout':
+            data = self.rfile.read(int(self.headers.get('Content-Length')))
+            data = json.loads(data)
+            user_data = self.db_connection.user_logout(data)
+            return self.wfile.write(json.dumps({'logout': "success"}).encode())
+        
+        elif self.path == '/do_insert_cropdetail':
+            data = self.rfile.read(int(self.headers.get('Content-Length')))
+            data = json.loads(data)
+            self.db_connection.insert_cropdetail(data)
+
 
     def do_GET(self):
        if self.path in ['/', '/signup', '/login', '/home']:

@@ -25,6 +25,19 @@ class Connection():
             );'''
             self.cr.execute(users);
         else:
+	    self.create_connection(self.db_name)
+            cropdetail = '''CREATE TABLE IF NOT EXISTS cropdetail(
+                id SERIAL PRIMARY KEY,
+                crop_name varchar  NOT NULL,
+                detail varchar NOT NULL,
+                place varchar,
+                expected_qty varchar NOT NULL,
+                Category varchar NOT NULL,
+                state varchar
+            );'''
+            self.cr.execute(cropdetail);
+            self.create_connection(self.db_name)
+
             self.create_connection(self.db_name)
 
     def create_connection(self, db_name):
@@ -46,3 +59,10 @@ class Connection():
     def session_validate(self, data):
         self.cr.execute("SELECT id FROM users WHERE session='%s'" % (data['session_id']))
         return self.cr.fetchone()
+   def user_logout(self, data):
+        self.cr.execute("UPDATE users SET session=null WHERE session='%s'" % (data['session_id']))
+
+    def insert_cropdetail(self, data):
+        cropdetail = """INSERT INTO cropdetail (crop_name, detail,place,expected_qty,Category,state) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')""" % (data['cropname'], data['detail'], data['place'], data['qty'], data['category'], data['state']);
+        self.cr.execute(cropdetail)
+        

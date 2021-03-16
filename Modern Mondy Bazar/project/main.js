@@ -33,7 +33,7 @@ const ROUTES = [
     { name: "LOGIN", path: "/login", component: Login },
     { name: "SIGN_UP", path: "/signup", component: SignUp },
     { name: "Home", path: "/", component: Content },
-    { name: "cropedetail", path:"/cropedetail", component: Cropedetail },
+    { name: "Cropregistration", path:"/Cropregistration", component: Cropregistration },
     ];
     
 function makeEnvironment() 

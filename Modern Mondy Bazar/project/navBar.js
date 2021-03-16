@@ -26,6 +26,11 @@ export class NavBar extends Component
     return this.env.router.navigate({ to: 'SIGN_UP' });
   }
 
+  Cropregistration(ev){
+    this.env.router.navigate({ to: 'Cropregistration' });
+    
+  }
+
   async onClickLogout(ev){
 
     this.valid = ev.valid;  
@@ -51,7 +56,7 @@ export class NavBar extends Component
       </div>
       <t t-if="valid">
         <ul class="nav nav-pills">
-          <button type="button" t-on-click="home" class="btn btn-default navbar-btn">HOME</button>
+          <button type="button" t-on-click="Cropregistration" class="btn btn-default navbar-btn">HOME</button>
 <button type="button" t-on-click="cropdetail" class="btn btn-default navbar-btn mx-2">CROPE DETAIL</button>
             <button type="button" class="btn btn-default navbar-btn mx-2">STAGE ACTIVITY</button>
             <button type="button" class="btn btn-default navbar-btn mx-2">ORDER</button>
