@@ -29,6 +29,13 @@ class myHandler(SimpleHTTPRequestHandler):
             data = self.rfile.read(int(self.headers.get('Content-Length')))
             data = json.loads(data)
             self.db_connection.create_user(data)
+
+	elif self.path == '/do_clientsignup':
+            data = self.rfile.read(int(self.headers.get('Content-Length')))
+            data = json.loads(data)
+            user_data=self.db_connection.client_create_user(data)
+            return self.wfile.write(json.dumps({'credentials': True}).encode()) 
+
             # return self.wfile.write(True)
         elif self.path == '/do_login':
             data = self.rfile.read(int(self.headers.get('Content-Length')))

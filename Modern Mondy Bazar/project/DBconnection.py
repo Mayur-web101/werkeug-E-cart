@@ -48,6 +48,10 @@ class Connection():
     def create_user(self, data):
         users = """INSERT INTO users (email, password, mobile_no) VALUES ('%s', '%s', '%s')""" % (data['email'], data['password'], data['mobileno']);
         self.cr.execute(users)
+    
+    def client_create_user(self, data):
+        users = """INSERT INTO users (role,email, password, mobile_no,name,address) VALUES ('client','%s', '%s', '%s', '%s', '%s')""" % (data['email'], data['password'], data['mobile'],data['client'],data['address']);
+        self.cr.execute(users)
 
     def user_exists(self, data):
         self.cr.execute("SELECT id FROM users WHERE email='%s' and password='%s'" % (data['email'], data['password']))
