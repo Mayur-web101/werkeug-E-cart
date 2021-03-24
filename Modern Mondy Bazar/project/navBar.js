@@ -30,6 +30,10 @@ export class NavBar extends Component
     this.env.router.navigate({ to: 'Cropregistration' });
     
   }
+  Crop_booking(ev){
+    this.env.router.navigate({ to: 'Crop_booking'})
+  }
+
 
   async onClickLogout(ev){
 
@@ -62,7 +66,10 @@ export class NavBar extends Component
             <button type="button" class="btn btn-default navbar-btn mx-2">ORDER</button>
         </ul>
           <form class="navbar-form navbar-left">
-            <button type="button" t-on-click="onClickLogout" class="btn btn-default navbar-btn">LOGOUT</button>
+           <button type="button" t-on-click="home" class="btn btn-default navbar-btn mx-2">HOME</button>
+                <button type="button" t-on-click="Cropregistration" class="btn btn-default navbar-btn mx-2">CROPE DETAIL</button>
+                <button type="button" t-on-click="Stageactivity" class="btn btn-default navbar-btn mx-2">STAGE ACTIVITY</button>
+                <button type="button" class="btn btn-default navbar-btn mx-2">ORDER</button>
         </form>
       </t>
       <t t-else="">

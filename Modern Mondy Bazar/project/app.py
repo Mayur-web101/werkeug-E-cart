@@ -66,6 +66,11 @@ class myHandler(SimpleHTTPRequestHandler):
             data = self.rfile.read(int(self.headers.get('Content-Length')))
             data = json.loads(data)
             self.db_connection.insert_cropdetail(data)
+	
+        elif self.path == '/do_booking':
+            data = self.rfile.read(int(self.headers.get('Content-Length')))
+            data = json.loads(data)
+            self.db_connection.crop_booking(data)
 
 
     def do_GET(self):

@@ -24,7 +24,7 @@ class Connection():
                 mobile_no varchar NOT NULL
             );'''
             self.cr.execute(users);
-        else:
+        
 	    self.create_connection(self.db_name)
             cropdetail = '''CREATE TABLE IF NOT EXISTS cropdetail(
                 id SERIAL PRIMARY KEY,
@@ -36,9 +36,19 @@ class Connection():
                 state varchar
             );'''
             self.cr.execute(cropdetail);
+crop_book = '''CREATE TABLE IF NOT EXISTS crop_book(
+                b_id SERIAL PRIMARY KEY,
+                name varchar  NOT NULL,
+                address varchar NOT NULL,
+                mobile varchar NOT NULL,
+                qty varchar NOT NULL,
+                dat varchar NOT NULL
+            );'''
+            self.cr.execute(crop_book);
+	else:
             self.create_connection(self.db_name)
 
-            self.create_connection(self.db_name)
+           
 
     def create_connection(self, db_name):
         self.connection = psycopg2.connect(user="postgres", password="postgres", host="127.0.0.1", port="5432", database=db_name)
