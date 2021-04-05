@@ -1,18 +1,21 @@
 const { Component,Store,mount, useState} = owl;
 const { xml } = owl.tags;
 
-export class Orderlist extends Component
+export class BookingStatus extends Component
 {
     constructor() {
       super(...arguments);
       // event_type, owner, callback
-      this.env.bus.on('cropdataChange', this, this.cropdataChange);
+      this.env.bus.on('Book_status', this, this.Book_status);
+      this.state = useState({
+        data : []
+      });
     }
 
-    cropdataChange(ev){debugger
+    Book_status(ev){debugger
         this.valid = ev.valid;
+        this.state.data = ev.valid;
     }
-
 
 	static template = xml`
 
@@ -21,36 +24,34 @@ export class Orderlist extends Component
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Crop Name</th>
+                                    <th>Name</th>
                                     <th>Address</th>
                                     <th>Mobile No</th>
                                     <th>Quantity</th>
                                     <th>Date</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <t t-foreach="state.data" t-as="i">
                                         <tr>
                                             <td>
-                                                <t t-esc="i.name"></t>
+                                                <t t-esc="i[2]"></t>
                                             </td>
                                             <td>
-                                                <t t-esc="i.address"></t>
+                                                <t t-esc="i[3]"></t>
                                             </td>
                                             <td>
-                                                <t t-esc="i.mobile"></t>
+                                                <t t-esc="i[4]"></t>
                                             </td>
                                             <td>
-                                                <t t-esc="i.qty"></t>
+                                                <t t-esc="i[5]"></t>
                                             </td>
                                             <td>
-                                                <t t-esc="i.date"></t>
+                                                <t t-esc="i[6]"></t>
                                             </td>
                                             <td>
-                                                <button type="submit" class="btn btn-success">APPROVE</button>
-                                            </td>
-                                             <td>
-                                                <button type="submit" class="btn btn-success">CANCELE</button>
+                                                <t t-esc="i[7]"></t>
                                             </td>
                                         </tr>   
                                 </t>

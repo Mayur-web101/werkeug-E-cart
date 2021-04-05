@@ -76,6 +76,30 @@ class myHandler(SimpleHTTPRequestHandler):
             data = self.rfile.read(int(self.headers.get('Content-Length')))
             data = json.loads(data)
             self.db_connection.crop_booking(data)
+	 elif self.path == '/do_bookingdetails':
+            details = self.db_connection.booking_detail()
+            print(details)
+            return self.wfile.write(json.dumps({'details': details}).encode())
+
+        elif self.path == '/do_approve':
+            data = self.rfile.read(int(self.headers.get('Content-Length')))
+            data = json.loads(data)
+            print(data)
+            confirm = self.db_connection.approve(data)
+            return self.wfile.write(json.dumps({'confirm': confirm}).encode())
+
+        # elif self.path == '/do_cancel':
+        #     data = self.rfile.read(int(self.headers.get('Content-Length')))
+        #     data = json.loads(data)
+        #     print(data)
+        #     confirm = self.db_connection.cancel(data)
+        #     return self.wfile.write(json.dumps({'cancel': cancel}).encode())
+
+        elif self.path == '/do_BookingStatus':
+            details = self.db_connection.booking_status()
+            print(details)
+            return self.wfile.write(json.dumps({'details': details}).encode())
+
 
         elif self.path == '/do_order_details':
             details = self.db_connection.order_details()

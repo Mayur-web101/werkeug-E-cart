@@ -79,4 +79,24 @@ crop_book = '''CREATE TABLE IF NOT EXISTS crop_book(
     def insert_cropdetail(self, data):
         cropdetail = """INSERT INTO cropdetail (crop_name, detail,place,expected_qty,Category,state) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')""" % (data['cropname'], data['detail'], data['place'], data['qty'], data['category'], data['state']);
         self.cr.execute(cropdetail)
+     def insert_activity(self, data, result):
+        print(result)
+        stage_activity = """INSERT INTO stage_activity (cropdetail_id,cropname,stage,start_date, end_date,price,sequence,description,finish_note) VALUES (%s,'%s', %s, '%s', '%s', '%s', '%s', '%s', '%s')""" % (result,data['cropname'],data['stage'],data['start_date'], data['end_date'], data['price'], data['sequence'], data['description'], data['Finish_note']);
+        self.cr.execute(stage_activity)
+
+    def get_crop_id(self, cropname):
+        print(cropname)
+        self.cr.execute("SELECT id FROM cropdetail WHERE crop_name='%s'" % (cropname))
+        return self.cr.fetchone()
+
+    def crop_booking(self, data):
+        crop_book = """INSERT INTO crop_book (u_id, name, address, mobile, qty, dat, status ) VALUES ('%s', '%s', '%s', '%s', '%s','%s', '%s')""" % (data['user_id'], data['name'], data['address'], data['mobile'], data['qty'], data['date'], 'pending');
+        self.cr.execute(crop_book) 
+
+    def booking_detail(self):
+        self.cr.execute("SELECT * From crop_book")
+        return self.cr.fetchall()
+
+    def approve(self, data):
+        self.cr.execute("UPDATE crop_book SET status='confirm' WHERE b_id=%s" % (data['b_id']))
         
