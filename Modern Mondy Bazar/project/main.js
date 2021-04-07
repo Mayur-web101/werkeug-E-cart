@@ -12,6 +12,15 @@ import { Footer } from "./Footer.js";
 import { Login } from "./login.js";
 import { NavBar } from "./navBar.js";
 import { SignUp } from "./signup.js";
+import { Stageactivity } from "./farmer/Stageactivity.js";
+import { ClientSignUp } from "./ClientSignUp.js";
+import { Crop_booking } from "./client/Booking.js";
+import { orderlist } from "./farmer/orderlist.js";
+import { Croplist } from "./client/Croplist.js";
+import { ViewStage } from "./client/ViewStage.js";
+import { BookingStatus } from "./client/BookingStatus.js";
+import { BookingStatus } from "./client/BookingStatus.js";
+import { PendingOrader } from "./farmer/PendingOrader.js";
 
 const APP_TEMPLATE= xml`
     <div>
@@ -34,6 +43,13 @@ const ROUTES = [
     { name: "SIGN_UP", path: "/signup", component: SignUp },
     { name: "Home", path: "/", component: Content },
     { name: "Cropregistration", path:"/Cropregistration", component: Cropregistration },
+    { name: "Stageactivity", path:"/Stageactivity", component: Stageactivity },
+	{ name: "Crop_booking", path:"/Crop_booking", component: Crop_booking },
+	{ name: "orderlist", path:"/orderlist", component: orderlist },
+	{ name: "Croplist", path:"/Croplist", component: Croplist },
+	{ name: "ViewStage", path:"/ViewStage", component: ViewStage },
+	{ name: "BookingStatus", path:"/BookingStatus", component: BookingStatus },
+	{ name: "PendingOrader", path:"/PendingOrader", component: PendingOrader },
     ];
     
 function makeEnvironment() 

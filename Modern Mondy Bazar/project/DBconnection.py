@@ -134,6 +134,9 @@ class Connection():
     def approve(self, data):
         self.cr.execute("UPDATE crop_book SET status='confirm' WHERE b_id=%s" % (data['b_id']))
 
+    def pending(self, data):
+        self.cr.execute("UPDATE crop_book SET status='confirm' WHERE b_id=%s" % (data['b_id']))
+
     # def cancel(self, data):
     #     self.cr.execute("DELETE crop_book WHERE b_id=%s" % (data['b_id']))
 

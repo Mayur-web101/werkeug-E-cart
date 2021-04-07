@@ -88,6 +88,13 @@ class myHandler(SimpleHTTPRequestHandler):
             confirm = self.db_connection.approve(data)
             return self.wfile.write(json.dumps({'confirm': confirm}).encode())
 
+	elif self.path == '/do_pendding':
+            data = self.rfile.read(int(self.headers.get('Content-Length')))
+            data = json.loads(data)
+            print(data)
+            confirm = self.db_connection.pending(data)
+            return self.wfile.write(json.dumps({'confirm': confirm}).encode())
+
         # elif self.path == '/do_cancel':
         #     data = self.rfile.read(int(self.headers.get('Content-Length')))
         #     data = json.loads(data)
