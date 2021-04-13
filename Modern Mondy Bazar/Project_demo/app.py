@@ -146,6 +146,11 @@ class myHandler(SimpleHTTPRequestHandler):
             details = self.db_connection.view_stage_details()
             print(details)
             return self.wfile.write(json.dumps({'details': details}).encode())
+     
+         elif self.path == '/do_pendingRequest':
+            details = self.db_connection.pending()
+            print(details)
+            return self.wfile.write(json.dumps({'details': details}).encode())
 
     def do_GET(self):
         if self.path in ['/', '/signup', '/login', '/Cropregistration','/ClientSignUp','/home','/Cropregistration','/Stageactivity','/Crop_booking', '/orderlist','/Croplist','/ViewStage','/BookingStatus']:

@@ -20,6 +20,7 @@ import { orderlist } from "./farmer/orderlist.js";
 import { Croplist } from "./client/Croplist.js";
 import { ViewStage } from "./client/ViewStage.js";
 import { BookingStatus } from "./client/BookingStatus.js";
+import { BookingStatus } from "./client/PendingRequest.js";
 
 const APP_TEMPLATE= xml`
 	<div>
@@ -49,6 +50,7 @@ const ROUTES = [
 	{ name: "Croplist", path:"/Croplist", component: Croplist },
 	{ name: "ViewStage", path:"/ViewStage", component: ViewStage },
 	{ name: "BookingStatus", path:"/BookingStatus", component: BookingStatus },
+	{ name: "PendingRequest", path:"/PendingRequest", component: PendingRequest },
 	];
 	
 function makeEnvironment() 

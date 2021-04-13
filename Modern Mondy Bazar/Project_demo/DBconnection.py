@@ -152,6 +152,10 @@ class Connection():
     def booking_status(self):
         self.cr.execute("SELECT * From crop_book")
         return self.cr.fetchall()
+
+    def pending(self):
+        self.cr.execute("SELECT * From crop_book")
+        return self.cr.fetchall()
 # 1        SELECT cropdetail.expected_qty, stage_activity.cropname, stage_activity.stage,stage_activity.start_date,stage_activity.end_date,stage_activity.price,stage_activity.sequence,stage_activity.description,stage_activity.finish_note
 # FROM stage_activity 
 # INNER JOIN cropdetail ON stage_activity.cropdetail_id=cropdetail.id;
