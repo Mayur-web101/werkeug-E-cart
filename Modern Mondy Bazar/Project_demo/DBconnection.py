@@ -159,11 +159,8 @@ class Connection():
 
    def Readimage(self)
 	filedata = f.read()
-        curs.execute("INSERT INTO files(id, orig_filename, file_data) VALUES (DEFAULT,%s,%s) RETURNING id", (args.filename, filedata))
+        curs.execute('INSERT INTO img(images) VALUES(%s)')
         returned_id = curs.fetchone()[0]
-        f.close()
-        conn.commit()
-        print("Stored {0} into DB record {1}".format(args.filename, returned_id))
 
 # 1        SELECT cropdetail.expected_qty, stage_activity.cropname, stage_activity.stage,stage_activity.start_date,stage_activity.end_date,stage_activity.price,stage_activity.sequence,stage_activity.description,stage_activity.finish_note
 # FROM stage_activity 

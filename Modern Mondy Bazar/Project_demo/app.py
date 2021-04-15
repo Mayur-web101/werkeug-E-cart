@@ -151,34 +151,22 @@ class myHandler(SimpleHTTPRequestHandler):
             details = self.db_connection.pending()
             print(details)
             return self.wfile.write(json.dumps({'details': details}).encode())
+	
+
 	def read_blob(part_id, path_to_dir):
-
-    
-""" read BLOB data from a table """
-    conn = None
-    try:
-        # read database configuration
-        params = config()
-        # connect to the PostgresQL database
-        conn = psycopg2.connect(**params)
-        # create a new cursor object
-        cur = conn.cursor()
-        # execute the SELECT statement
-        cur.execute(""" SELECT part_name, file_extension, drawing_data
-                        FROM part_drawings
-                        INNER JOIN parts on parts.part_id = part_drawings.part_id
-                        WHERE parts.part_id = %s """,
-                    (part_id,))
-
-        blob = cur.fetchone()
-        open(path_to_dir + blob[0] + '.' + blob[1], 'wb').write(blob[2])
-        # close the communication with the PostgresQL database
-        cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
+	with open("\images.jpg", "rb") as image_file:
+	    encoded_string = base64.b64encode(image_file.read())    
+	args = (encoded_string, )
+	cursor=db.cursor()
+	cursor.execute(sql,args)
+	sql1='select * from img'
+	cursor.execute(sql1)
+	data=cursor.fetchall()
+	#print type(data[0][0])
+	data1=base64.b64decode(data[0][0])
+	file_like=cStringIO.StringIO(data1)
+	img=PIL.Image.open(file_like)
+	return img.show()
 
     
  def do_GET(self):

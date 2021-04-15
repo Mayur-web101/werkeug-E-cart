@@ -34,6 +34,7 @@ export class ViewStage extends Component
                         <th class="card-title">END DATE</th>
                         <th class="card-title">PRICE</th>
                         <th class="card-title">SEQUENCE</th>
+   			<th class="card-title">IMAGES</th>
                         <th class="card-title">DESCRIPTION</th>
                         <th class="card-title">FINISH NOTE</th>
                     </tr>
@@ -61,6 +62,9 @@ export class ViewStage extends Component
                                 </td>
                                 <td>
                                     <t t-esc="i[7]"></t>
+                                </td>
+                                 <td>
+                                    <t t-esc="i[8]"></t>
                                 </td>
                                 <td>
                                     <t t-esc="i[10]"></t>
