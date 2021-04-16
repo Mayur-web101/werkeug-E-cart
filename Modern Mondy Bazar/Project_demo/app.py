@@ -147,22 +147,25 @@ class myHandler(SimpleHTTPRequestHandler):
             print(details)
             return self.wfile.write(json.dumps({'details': details}).encode())
      
-         elif self.path == '/do_pendingRequest':
+        elif self.path == '/do_pendingRequest':
             details = self.db_connection.pending()
             print(details)
             return self.wfile.write(json.dumps({'details': details}).encode())
 	
 
 	def read_blob(part_id, path_to_dir):
+		def convertToBinaryData(filename):
+		    with open(filename, 'rb') as file:
+			binaryData = file.read()
+		    return binaryData
+
 	with open("\images.jpg", "rb") as image_file:
 	    encoded_string = base64.b64encode(image_file.read())    
 	args = (encoded_string, )
 	cursor=db.cursor()
 	cursor.execute(sql,args)
-	sql1='select * from img'
 	cursor.execute(sql1)
 	data=cursor.fetchall()
-	#print type(data[0][0])
 	data1=base64.b64decode(data[0][0])
 	file_like=cStringIO.StringIO(data1)
 	img=PIL.Image.open(file_like)

@@ -47,7 +47,7 @@ class Connection():
                 price INT NOT NULL,
                 sequence INT NOT NULL,
                 video varchar,
-                images bytea,
+                images varchar,
                 description varchar NOT NULL,
                 finish_note varchar,
                 PRIMARY KEY(st_id),
@@ -146,7 +146,7 @@ class Connection():
         return self.cr.fetchall()
 
     def view_stage_details(self, data):
-        self.cr.execute("SELECT * FROM stage_activity WHERE cropdetail_id= %s" %(data['cropdetail_id']))
+        self.cr.execute("SELECT cropdetail.expected_qty, stage_activity.cropname, 				         stage_activity.stage,stage_activity.start_date,stage_activity.end_date,stage_activity.price,stage_activity.sequence,stage_activity.description,stage_activity.finish_note FROM stage_activity INNER JOIN cropdetail ON stage_activity.cropdetail_id=cropdetail.id;)
         return self.cr.fetchall()
 
     def booking_status(self):
@@ -154,7 +154,7 @@ class Connection():
         return self.cr.fetchall()
 
     def pending(self):
-        self.cr.execute("SELECT * From crop_book")
+        self.cr.execute("2 SELECT users.name, users.address, users.mobile_no,crop_book.qty,crop_book.dat,crop_book.status FROM crop_book INNER JOIN users ON crop_book.u_id=users.id;")
         return self.cr.fetchall()
 
    def Readimage(self)
