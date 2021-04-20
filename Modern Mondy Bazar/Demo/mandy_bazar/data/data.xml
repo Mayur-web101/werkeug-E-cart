@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <record id="user0" model="mandy_bazar">
+            <field name="name">mayur</field>
+            <field name="address">At Dharampuri</field>
+            <field name="city">Vansda</field>
+            <field name="district">Navsari</field>
+            <field name="state">Gujarat</field>
+            <field name="pincode">396590</field>
+            <field name="mobile">7575051070</field>
+            <field name="email">mrk@gmail.com</field>
+        </record>
+	</data>
+</odoo>
