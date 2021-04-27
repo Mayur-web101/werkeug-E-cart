@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="farmer" model="farmer">
+            <field name="role">farmer</field>
+            <field name="email">sam@gmail.com</field>
+            <field name="mobile_no">9685274185</field>
+            <field name="password">12345</field>
+        </record>

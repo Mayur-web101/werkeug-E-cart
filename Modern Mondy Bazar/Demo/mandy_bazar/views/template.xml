@@ -1,0 +1,18 @@
+<odoo>
+
+    <template id="portal_farmer_index">
+            <div class="container">
+                <h1 class="text-center" style="margin-top: 25%;">Welcome to Modern Mandy Bazar.</h1>
+                <a href="/create_student" class="btn btn-primary">Create</a>
+            </div>
+    </template>
+    <template id="create_student">
+            <form action="/submit_form">
+                <div>
+                    <div>Name: <input type="text" name="name"/></div><br/>
+                    <div>Maths: <input type="text" name="maths"/></div><br/>
+                    <div><button type="submit">submit</button></div>
+                </div>
+            </form>
+    </template>
+</odoo>

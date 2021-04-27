@@ -1,18 +1,206 @@
 <odoo>
 
-    <template id="portal_farmer_index">
-            <div class="container">
-                <h1 class="text-center" style="margin-top: 25%;">Welcome to Modern Mandy Bazar.</h1>
-                <a href="/create_student" class="btn btn-primary">Create</a>
-            </div>
+    <template id="home">
+    <t t-call="web.layout">        
+        <t t-call="mandy_bazar.header"/>
+        <t t-call="mandy_bazar.dashboard"/>
+        <t t-call="mandy_bazar.footer"/>
+        </t>
     </template>
-    <template id="create_student">
-            <form action="/submit_form">
-                <div>
-                    <div>Name: <input type="text" name="name"/></div><br/>
-                    <div>Maths: <input type="text" name="maths"/></div><br/>
-                    <div><button type="submit">submit</button></div>
+
+
+<!-- ................................ home........................................-->
+
+   <template id="dashboard">
+        <div class="container">
+            <div class="mb-5 ml-5 mt-5">
+                <div class="row">
+                    <div class="col-sm-6 mt-5">
+                        <h3><font color="orange"> Best Solution of your Product</font> </h3><br></br>
+                        <h1><font color="orange">Moder Mandy Bazar</font></h1><br></br>
+                       
+                    </div>
+                    <div class="col-sm-6">
+                        <img src="/Engineer_as_a_service/static/images/engineer.jpg" class="img-fluid mt-2 rounded zoom" alt="Responsive image"/>
+                    </div>   
                 </div>
-            </form>
+            </div>
+        </div>
     </template>
+
+    <!-- ................................ header........................................-->
+    
+    <template id="header">
+        <t t-call="web.layout">        
+            <nav class="navbar navbar-dark bg-dark" style="border:1px solid #15420A;">
+                <div>
+                    <p><h3 id="h" class="text-white bg-dark">Modern Mondy Bazar</h3></p>
+                </div>
+
+                    <t t-if="request.session.get('user_name')">
+                        <t t-if="request.session.get('role') == 'client'">
+                            <form class="navbar-form navbar-left">
+                                  <button type="button" t-on-click="home" class="btn btn-default navbar-btn mx-2">HOME</button>
+                                  <button type="button" t-on-click="onClickCropDetails" class="btn btn-default navbar-btn mx-2">CROPE DETAIL</button>
+                                  <button type="button" t-on-click="Crop_booking" class="btn btn-default navbar-btn mx-2">BOOKING</button>
+                                  <button type="button" t-on-click="onClickBookStatus" class="btn btn-default navbar-btn mx-2">REQUEST STATUS</button>
+                                  <button type="button" t-on-click="logout" class="btn btn-default navbar-btn mx-2">LOGOUT</button>
+                            </form> 
+                        </t>
+                        <t t-else="">
+                            <ul class="nav nav-pills">
+                                <button type="button" t-on-click="home" class="btn btn-default navbar-btn mx-2">HOME</button>
+                                <button type="button" t-on-click="Cropregistration" class="btn btn-default navbar-btn mx-2">CROP REGISTRATION</button>
+                                <button type="button" t-on-click="Stageactivity" class="btn btn-default navbar-btn mx-2">STAGE ACTIVITY</button>
+                                <button type="button" t-on-click="onClickPendingRequest" class="btn btn-default navbar-btn mx-2">ORDER LIST</button>
+                            </ul>
+                            <form class="navbar-form navbar-left">
+                              <button type="button" t-on-click="logout" class="btn btn-default navbar-btn">LOGOUT</button>
+                            </form>
+                        </t> 
+                    </t>    
+                        <t t-else="">
+                            <form class="navbar-form navbar-left">
+                              <button type="button"  href="#" onClick="location.href='/login'"  class="btn btn-default mx-2">SIGN IN </button>
+                              <button type="button"  href="#" onClick="location.href='/signup'"  class="btn btn-default mx-2 ">SIGN UP</button>
+                            </form>
+                         </t>  
+            </nav>    
+        </t>
+</template>
+
+<!-- ................................ footer........................................-->
+    
+    <template id="footer">
+        <t t-call="web.layout">        
+            <nav class="navbar navbar-expand-lg navbar-light bg-info mb-0 mt-5 fix-bottom" >
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               <h3>Mandy Bazar</h3>
+              </div>
+            </nav>
+        </t>
+    </template>
+
+
+<!-- ................................Login........................................-->
+
+ <template id="login">
+        <t t-call="web.layout">        
+            <t t-call="mandy_bazar.header"/>
+            <div class="container mt-5">
+                <h1 class="mb-4">Login Here</h1>
+                <form action="/login_submit">
+                    <div class="form-group">
+                        <label for="email">Email address:</label>
+                        <input type="email" class="form-control" name="email" placeholder="Enter email" id="email" required="true"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="password" class="form-control" name="password" placeholder="Enter password" id="pwd" required="true"/>
+                    </div>
+                    <div class="text text-danger"><!-- <t t-esc="state.invalid"/> --></div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template>
+
+    <!-- ................................ signup farmer........................................-->
+
+    <template id="signup">
+        <t t-call="web.layout">        
+            <t t-call="mandy_bazar.header"/>
+                <div class="container mt-5">
+                    <h1>Sign Up for Farmer</h1>
+                    <div class="mb-5 mt-5">
+                        <label for="engineer_signup">Are you want to join as a client ? </label>
+                        <button type="button" class="btn btn-primary ml-2" onClick="location.href='/signup_client'">Client</button>
+                    </div>
+                    <form action="/signup_submit" method="POST">
+                        <div id="customer">
+                             <h2 class="mb-3">farmer Signup</h2>
+                            <div class="form-group">
+                                <label for="email">Email address:</label>
+                                <input type="email" class="form-control" placeholder="Enter email" name="email" id="email" required="true"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd">Password:</label>
+                                <input type="password" t-model="state.pwd" t-on-keyup="_onKeyUpPwd" class="form-control" placeholder="Enter password" name="password" id="pwd" required="true"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="repwd">Re-Enter Password:</label>
+                                <input type="password" t-model="state.repwd" t-on-keyup="_onKeyUpRePwd" class="form-control" placeholder="Enter password" name="repwd" id="repwd" required="true"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="mobile-no">Mobile No:</label>
+                                <input type="text" class="form-control" placeholder="Enter Mobile number" name="mobno" id="mobile-no" required="true"/>
+                            </div>
+                            <div class="text text-danger"><!-- <t t-esc="state.invalid_eml"/> --></div>
+                            <button type="submit" class="btn btn-primary ml-2" >Submit</button>
+                        </div>
+                    </form>
+                </div>     
+                <t t-call="mandy_bazar.footer"/>
+            </t>
+    </template>
+
+
+<!-- ................................ signup for client........................................-->
+
+
+    <template id="signup_client">
+        <t t-call="web.layout">        
+            <t t-call="mandy_bazar.header"/>
+                <div class="container mt-5">
+                    <h1>SignUp for Client</h1>
+                    <div class="mb-5 mt-5">
+                        <label for="engineer_signup">Are you want to join as a Farmer ? </label>
+                        <button type="button" class="btn btn-primary ml-2" onClick="location.href='/signup'">farmer</button>
+                    </div>
+                        <form action="/engineer_signup_submit" method="POST">
+                            <div id="engineer">
+                                <h2 class="mb-3">Client Signup</h2>
+                                <div class="form-group">
+                                    <label for="email">Email address:</label>
+                                    <input type="email" class="form-control" placeholder="Enter email" name="email" id="email" required="true"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fname">Name:</label>
+                                    <input type="text" class="form-control" placeholder="Enter Name" name="fname" id="fname" required="true"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pwd">Password:</label>
+                                    <input type="password" t-model="state.pwd" t-on-keyup="_onKeyUpPwd" class="form-control" placeholder="Enter password" name="password" id="pwd" required="true"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="repwd">Re-Enter Password:</label>
+                                    <input type="password" t-model="state.repwd" t-on-keyup="_onKeyUpRePwd" class="form-control" placeholder="Enter password" name="repwd" id="repwd" required="true"/>
+                                </div>
+                             <!--    <div t-if="state.pwmatch === false">
+                                    <h4>Password Does not match</h4>
+                                </div> -->
+                                <div class="form-group">
+                                    <label for="Address">Address:</label>
+                                    <input type="text" class="form-control" placeholder="Enter Address" name="address" id="add" required="true"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mobile-no">Mobile No:</label>
+                                    <input type="text" class="form-control" placeholder="Enter Mobile number" name="mobno" id="mobile-no" required="true"/>
+                                </div>
+                                <div class="form-group form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox"/> Remember me
+                                    </label>
+                                </div>
+                                <div class="text text-danger"><!-- <t t-esc="state.invalid_eml"/> --></div>
+                                <button type="submit" class="btn btn-primary ml-2">Submit</button>
+                            </div>
+                        </form>
+                </div> 
+            <t t-call="mandy_bazar.footer"/>   
+        </t>
+    </template>
+
+
 </odoo>

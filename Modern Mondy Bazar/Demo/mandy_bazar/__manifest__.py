@@ -11,14 +11,8 @@
             """,
 
     'data' : [
-        # 'security/student_security.xml',
-        # 'security/ir.model.access.csv',
-        # 'data/student_data.xml',
-        # 'views/st_view.xml',
-        # 'data/data.xml',
-        'controllers/template.xml',
-        # 'wizard/student_wizard.xml',
-        # 'report/st_report.xml',
+         'controllers/template.xml',
+         'controllers/assests.xml',
     ],
 
     'application' : True
