@@ -203,4 +203,136 @@
     </template>
 
 
+<!-- ................................ Home client........................................-->
+
+
+    <template id="home_client">
+        <t t-call="web.layout">        
+            <t t-call="mandy_bazar.header"/>
+                <div class="container">   
+                    <div class="mb-5 ml-5 mt-5">
+                        <div class="row">
+                            <div class="col-sm-6"><br></br>
+                                <h3><font color="orange">Client Home</font> </h3><br></br>
+                                <h1><font color="orange"></font></h1><br></br>
+                               
+                            </div>
+                            <div class="col-sm-6">
+                                <img src="/Engineer_as_a_service/static/images/eng.jpg" class="img-fluid mt-2 rounded zoom" alt="Responsive image"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template>
+
+<!-- ................................ farmer CROP REGISTRATION........................................-->
+
+
+
+
+ <template id="farmer_crop_registartion">
+        <t t-call="web.layout">        
+            <t t-call="mandy_bazar.header"/>
+                <div class="container my-4">   
+                <h2 align="center">CROP REGISTRATION</h2>
+                    <form action="/crop_registartion" method="POST">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Crop Name</label>
+                            <input type="hidden" name="farmer_id" t-att-value="request.session.get('user_id')" />
+                            <input type="text" name="cropname" class="form-control" id="exampleInputPassword1" placeholder="Crop Name" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Detail</label>
+                            <input type="text" name="detail" class="form-control" id="exampleInputPassword1" placeholder="Detail" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Place</label>
+                            <input type="text" name="place" class="form-control" id="exampleInputPassword1" placeholder="Place" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">QTY In KG</label>
+                            <input type="number" name="qty" class="form-control" id="exampleInputPassword1" placeholder="QTY" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Category</label>
+                            <input type="select" name="category" class="form-control" id="exampleInputPassword1" placeholder="Category" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">state</label>
+                            <input type="select" name="state" class="form-control" id="exampleInputPassword1" placeholder="state" required="true"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary">ADD</button>
+                    </form>
+                </div> 
+            <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template>
+
+
+<!-- ................................ stage Activity........................................-->
+
+     <template id="stage_activity">
+        <t t-call="web.layout">        
+            <t t-call="mandy_bazar.header"/>
+                <div class="container my-4">   
+                    <h2 align="center">STAGE ACTIVITY</h2>
+                    <form action="/stage_activity_add" method="POST">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Crop Name</label>
+                            <input type="hidden" name="farmer_id" t-att-value="request.session.get('user_id')" />
+                           
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="cropname" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1" class="mr-3">Select Stage</label>
+                              <select name="stage" class="form-select mb-3" aria-label="Default select example">
+                                  <option value="1">First</option>
+                                  <option value="2">Second</option>
+                                  <option value="3">Three</option>
+                                  <option value="4">Fourth</option>
+                                  <option value="5">Fifth</option>
+                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Start Date</label>
+                            <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="start_date" required="true"/>
+                            <small id="emailHelp" class="form-text text-muted"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">End Date</label>
+                            <input type="date" class="form-control" id="exampleInputPassword1" name="end_date" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Price</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="price" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Sequence</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="sequence" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Video</label>
+                            <input type="file" class="form-control" id="exampleInputPassword1" name="video"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Images</label>
+                            <input type="file" class="form-control" id="exampleInputPassword1" name="images"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Description</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="description" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Finish_note</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="Finish_note" required="true"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary">ADD</button>
+                    </form>
+                </div>
+            <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template>
+
 </odoo>
