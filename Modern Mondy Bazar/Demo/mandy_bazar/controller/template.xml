@@ -335,4 +335,118 @@
         </t>
     </template>
 
+
+
+<!-- ................................ client side  
+
+CROP DETAIL........................................-->
+<template id="crop_list">
+        <t t-call="web.layout">        
+        <t t-call="mandy_bazar.header"/>
+            <div class="container">  
+                <div class="mt-5 mb-5">
+                   <h1>CROP LIST </h1> 
+                </div>
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>CROP ID</th>
+                                <th>FARMER ID</th>
+                                <th>CROP NAME</th>
+                                <th>DETAIL</th>
+                                <th>PLACE</th>
+                                <th>EXPECTED QTY</th>
+                                <th>CATEGARY</th>
+                                <th>STATE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <t t-foreach="state.data" t-as="i"> -->
+                            <tr t-foreach="crop_list" t-as="crop">
+                                        <td><t t-esc="crop.id"/></td>
+                                        <td><t t-esc="crop.farmer_id"/></td>
+                                        <td><t t-esc="crop.crop_name"/></td>
+                                        <td><t t-esc="crop.detail"/></td>
+                                        <td><t t-esc="crop.place"/></td>
+                                        <td><t t-esc="crop.expected_qty"/></td>
+                                        <td><t t-esc="crop.category"/></td>
+                                        <td><t t-esc="crop.state"/></td>
+                                         <td><a class="btn btn-danger text-white" t-att-href="'/book/%s/%s' % (crop.id,request.session.get('user_id'))">Book</a></td> 
+                                        <td><a class="btn btn-success" t-att-href="'/view_engineer_deatail/%s' % crop.id">View</a></td>
+                                    </tr>
+                                <!-- </t> -->
+                        </tbody>
+                    
+                    </table>
+                </div> 
+            </div>
+            <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template>
+
+     <template id="view_stage_deatail">
+        <t t-call="web.layout">        
+        <t t-call="mandy_bazar.header"/>
+            <div>
+                <h4 class="container mt-3 mb-3">STAGE DETAIL</h4>
+            </div>
+            <div class="d-flex justify-content-center mt-5">
+                <div class="card text-center" style="width:35em;">
+                    <div class="card-header bg-dark text-white">
+                        Profile
+                    </div>
+                    <div class="card-body">
+                        <table style="width:100%">
+                        <t t-foreach="stage_list" t-as="data">
+                            <tr>
+                                <th>CROP NAME:</th>
+                                <td><t t-esc="data.crop_name"/></td>
+                            </tr>
+                            <tr>
+                                <th>STAGE DETAIL:</th>
+                                <td><t t-esc="data.stage_detail"/></td>
+                            </tr>
+                            <tr>
+                                <th>START DATE:</th>
+                                <td><t t-esc="data.start_date"/></td>
+                            </tr>
+                            <tr>
+                                <th>END DATE:</th>
+                                <td><t t-esc="data.end_date"/></td>
+                            </tr>
+                            <tr>
+                                <th>PRICE:</th>
+                                <td><t t-esc="data.price"/></td>
+                            </tr>
+                            <tr>
+                                <th>SEQUENCE:</th>
+                                <td><t t-esc="data.sequence"/></td>
+                            </tr>
+                            <tr>
+                                <th>DESCRIPTION:</th>
+                                <td><t t-esc="data.description"/></td>
+                            </tr>
+                            <tr>
+                                <th>FINISH NOTE:</th>
+                                <td><t t-esc="data.finish_note"/></td>
+                            </tr>
+                        </t>
+                        </table>
+                    </div>
+                    <div class="card-footer bg-dark texxt-white text-muted">
+                    </div>
+                </div>
+            </div>
+        <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template>
+
+
 </odoo>
+
+
+
+
+
+

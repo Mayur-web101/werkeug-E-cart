@@ -73,6 +73,7 @@ class main(http.Controller):
     def stage_activity_add(self, **kwargs):
         # print(kwargs)
         # import pdb; pdb.set_trace()
+        crop_id = request.env['crop_registration'].search([('crop_name', '=', kwargs.get("cropname"))])
         request.env['crop_registration'].create({
             'farmer_id': kwargs.get("farmer_id"),
             'crop_id': kwargs.get("crop_id"),
@@ -89,3 +90,14 @@ class main(http.Controller):
             })
 
         return http.local_redirect('/stage_activity_add')
+
+    @http.route('/crop_list', type="http")
+    def crop_list(self, **kwargs):
+        crop_registration = http.request.env['crop_registration']
+        # crop_list = request.env['crop_registration'].search([('crop_id', '=', crop_id)])
+        return request.render('mandy_bazar.crop_list',{'crop_list' : crop_registration.search([])})
+
+    @http.route('/view_stage_deatail/<int:stage_id>', type="http")
+    def view_stage_deatail(self,stage_id, **kwargs):
+        stage_list = request.env['stage_activity_detail'].browse(stage_id)
+        return request.render('mandy_bazar.view_engineer_detail',{'stage_list' : stage_list})
