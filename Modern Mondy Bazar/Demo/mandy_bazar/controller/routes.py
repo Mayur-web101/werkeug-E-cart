@@ -91,6 +91,40 @@ class main(http.Controller):
 
         return http.local_redirect('/stage_activity_add')
 
+  @http.route('/order_list', type="http")
+    def order_list(self, **kwargs):
+        orders = http.request.env['orders']
+        # crop_list = request.env['crop_registration'].search([('crop_id', '=', crop_id)])
+        return request.render('mandy_bazar.order_list',{'order_list' : orders.search([])})
+
+    @http.route('/job_status_change/<int:order_id>/<string:status>', type="http")
+    def job_status_change(self,order_id,status, **kwargs):
+        print(status)
+        if status == "accept":    
+            order = request.env['orders'].browse(order_id)
+            if order:
+                order.write({
+                    'order_status' : "2"
+                })
+        elif status == "decline":
+            order = request.env['orders'].browse(order_id)
+            if order:
+                order.write({
+                    'order_status' : "0"
+                })
+        elif status == "delivered":
+            order = request.env['orders'].browse(order_id)
+            if order:
+                order.write({
+                    'order_status' : "3"
+                })
+
+                
+        return request.render('mandy_bazar.home_client')
+
+
+________________________client side------------------------
+
     @http.route('/crop_list', type="http")
     def crop_list(self, **kwargs):
         crop_registration = http.request.env['crop_registration']
@@ -101,3 +135,25 @@ class main(http.Controller):
     def view_stage_deatail(self,stage_id, **kwargs):
         stage_list = request.env['stage_activity_detail'].browse(stage_id)
         return request.render('mandy_bazar.view_engineer_detail',{'stage_list' : stage_list})
+   @http.route('/book/<int:crop_id>/<int:farmer_id>', type="http")
+    def book(self,crop_id,farmer_id, **kwargs):
+        return request.render('mandy_bazar.book',{'crop_id' : crop_id, 'farmer_id' : farmer_id })
+
+
+    @http.route('/book_crop/<int:crop_id>/<int:client_id>', type="http")
+    def book_crop(self,crop_id,client_id, **kwargs):
+        order_id = request.env['orders'].create({
+            'crop_id' : crop_id,
+            'client_id' : client_id,
+            'qty': kwargs.get("qty"),
+            'date': kwargs.get("b_date"),
+            'order_status' : "1"
+        }) 
+        return request.render('mandy_bazar.home_client') 
+
+    @http.route('/client_list', type="http")
+    def client_list(self, **kwargs):
+        orders = http.request.env['orders']
+        # crop_list = request.env['crop_registration'].search([('crop_id', '=', crop_id)])
+        return request.render('mandy_bazar.client_list',{'client_list' : orders.search([])})
+

@@ -335,11 +335,84 @@
         </t>
     </template>
 
+   <!-- ................................ order list........................................-->
+
+    
+    <template id="order_list">
+        <t t-call="web.layout">        
+        <t t-call="mandy_bazar.header"/>
+            <div class="container">  
+                <div class="mt-5 mb-5">
+                <h1>ORDER LIST </h1> 
+                </div>
+                <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>CLIENT NAME</th>
+                            <th>ADDRESS</th>
+                            <th>MOBILE</th>
+                            <th>CROP NAME</th>
+                            <th>QTY</th>
+                            <th>DATE</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr> 
+                            <tr t-foreach="order_list" t-as="order">
+                                <td><t t-esc="order.client_id.name"/></td>
+                                <td><t t-esc="order.client_id.address"/></td>
+                                <td><t t-esc="order.client_id.mobile_no"/></td>
+                                <td><t t-esc="order.crop_id.crop_name"/></td>
+                                <td><t t-esc="order.qty"/></td>
+                                <td><t t-esc="order.date"/></td> 
+
+                                  <t t-if="order.order_status=='0'">
+                                        <td>Order rejected</td>
+                                    </t>
+                                    <t t-if="order.order_status=='1'">
+                                        <td>Pending</td>
+                                    </t>
+                                    <t t-if="order.order_status=='2'">
+                                        <td>Accepted</td>
+                                    </t>
+                                    <t t-if="order.order_status=='3'">
+                                        <td>Delivered</td>
+                                    </t>
+
+                                    <t t-if="order.order_status=='1'">
+                                        <td>
+                                            <a class="btn btn-success mr-4" t-att-href="'/job_status_change/%s/accept' % order.id">Accept</a>
+                                            <a class="btn btn-danger" t-att-href="'/job_status_change/%s/decline' % order.id">Decline</a>
+                                        </td>
+                                    </t>
+                                        <td>    
+                                            <t t-if="order.order_status=='2'">
+                                                Click here to change the status to delivered:
+                                                <a class="btn btn-danger" t-att-href="'/job_status_change/%s/delivered' % order.id">Delivered</a>
+                                            </t>
+                                        </td>
+                            </tr>
+
+                            <!-- <td><a class="btn btn-danger text-white" t-att-href="'/book/%s/%s' % (data.id,request.session.get('user_id'))">Book</a></td>
+                            <td><a class="btn btn-success" t-att-href="'/view_engineer_deatail/%s' % data.id">View</a></td> -->
+          
+                    
+                        </tr>
+                    </tbody>
+                </table>
+                </div> 
+            </div>
+        <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template>
 
 
 <!-- ................................ client side  
 
 CROP DETAIL........................................-->
+
 <template id="crop_list">
         <t t-call="web.layout">        
         <t t-call="mandy_bazar.header"/>
@@ -384,6 +457,9 @@ CROP DETAIL........................................-->
             <t t-call="mandy_bazar.footer"/>
         </t>
     </template>
+
+-----------------------------------stage Detail--------------------------------------------
+
 
      <template id="view_stage_deatail">
         <t t-call="web.layout">        
@@ -442,6 +518,99 @@ CROP DETAIL........................................-->
         </t>
     </template>
 
+   <!-- ................................ 
+crop Book........................................-->
+
+    <template id="book">
+        <t t-call="web.layout">        
+            <t t-call="mandy_bazar.header"/>
+            <div class="container mt-5">
+                <h1 class="mb-4">BOOK CROP</h1>
+                <form  t-attf-action="/book_crop/{{crop_id}}/{{farmer_id}}">
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">QTY</label>
+                            <input type="number" name="qty" class="form-control" id="exampleInputPassword1" placeholder="QTY" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">DATE</label>
+                            <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="b_date" required="true"/>
+                            <small id="emailHelp" class="form-text text-muted"></small>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+
+                </form>
+            </div>
+            <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template>
+
+
+
+<!-- ................................ 
+Client order status........................................-->
+
+ 
+
+
+    <template id="client_list">
+        <t t-call="web.layout">        
+        <t t-call="mandy_bazar.header"/>
+            <div>
+                <h4 class="container mt-3 mb-3">Order Detail</h4>
+            </div>
+            <div class="d-flex justify-content-center mt-5">
+                <div class="card text-center" style="width:35em;">
+                    <div class="card-header bg-dark text-white">
+                        order
+                    </div>
+                    <div class="card-body">
+                        <table style="width:100%">
+                        <t t-foreach="client_list" t-as="data">
+                            <tr>
+                                <th> CLIENT NAME:</th>
+                                <td><t t-esc="data.client_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <th>CROP NAME:</th>
+                                <td><t t-esc="data.crop_id.crop_name"/></td>
+                            </tr>
+                            <tr>
+                                <th>QTY:</th>
+                                <td><t t-esc="data.qty"/></td>
+                            </tr>
+                            <tr>
+                                <th>DATE:</th>
+                                <td><t t-esc="data.date"/></td>
+                            </tr>
+                            <tr>
+                                <t t-if="data.order_status=='0'">
+                                    <td>Order Status</td>
+                                    <td>Order rejected</td>
+                                </t>
+                                <t t-if="data.order_status=='1'">
+                                    <td>Order Status</td>
+                                    <td>Pending</td>
+                                </t>
+                                <t t-if="data.order_status=='2'">
+                                    <td>Order Status</td>
+                                    <td>Accepted</td>
+                                </t>
+                                <t t-if="data.order_status=='3'">
+                                    <td>Order Status</td>
+                                    <td>Delivered</td>
+                                </t>
+                            </tr>
+                        </t>
+                        </table>
+                    </div>
+                    <div class="card-footer bg-dark texxt-white text-muted">
+                    </div>
+                </div>
+            </div>
+        <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template>
 
 </odoo>
 

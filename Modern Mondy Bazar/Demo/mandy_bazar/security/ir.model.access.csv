@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_farmer,access_farmer,model_farmer,base.group_user,1,1,1,1
+access_client,access_client,model_client,base.group_user,1,1,1,1
+access_crop_registration,access_crop_registration,model_crop_registration,base.group_user,1,1,1,1
+access_stage_activity_detail,access_stage_activity_detail,model_stage_activity_detail,base.group_user,1,1,1,1
+access_orders,access_orders,model_orders,base.group_user,1,1,1,1

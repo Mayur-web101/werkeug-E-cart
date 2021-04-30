@@ -66,3 +66,14 @@ class stage_activity_detail(models.Model):
     images = fields.Char(string="images")
     description = fields.Char(string="description") 
     finish_note = fields.Char(string="finish_note")
+
+class orders(models.Model):
+    _name = 'orders'
+    _description = " crop booking detail"
+
+    # order_id = fields.Many2one('orders', string="orders")
+    crop_id = fields.Many2one('crop_registration', string="crop_id")
+    client_id = fields.Many2one('client', string="client_id")
+    qty = fields.Integer(string="qty")
+    date = fields.Char(string="b_date")
+    order_status = fields.Char(string="status")
