@@ -1,0 +1,52 @@
+<odoo>
+    <record id="employee_tree_view" model="ir.ui.view">
+        <field name="name">employee List</field>
+        <field name="model">employee.list</field>
+        <field name="arch" type="xml">
+            <tree string="employee Details">
+                <field name="first_name"/>
+                <field name="last_name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="employee_form_view" model="ir.ui.view">
+        <field name="name">employee Form</field>
+        <field name="model">employee.list</field>
+        <field name="arch" type="xml">
+            <form string="employee Form">
+                <sheet>
+                    <group>
+                        <field name="first_name" required="1"/><br/>
+                        <field name="last_name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="employee_view_calendar" model="ir.ui.view"> 
+     <field name="name">employee calendar</field> 
+       <field name="model">employee.list</field> 
+         <field name="arch" type="xml">   
+            <calendar string="Service Request"
+            date_start="date_request"
+            date_stop="return_date"  
+            event_open_popup="true"
+            mode="month"
+            color="person_name"  
+            quick_add="False">      
+            </calendar> 
+        </field>
+    </record>
+
+    <record id="employee_action" model="ir.actions.act_window">
+        <field name="name">employee</field>
+        <field name="res_model">employee.list</field>
+        <field name="view_mode">tree,form,calendar</field>
+    </record>
+
+    <menuitem id="employee_root_menu" name="employee"/>
+    <menuitem id="employee_menu" name="employee" sequence="1" parent="employee_root_menu" action="employee_action"/>
+    <menuitem id="employee_menu" name="employee" sequence="2" parent="employee_root_menu" action="employee_action"/>
+</odoo>
