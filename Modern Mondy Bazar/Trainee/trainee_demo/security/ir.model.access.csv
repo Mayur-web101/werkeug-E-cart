@@ -1,2 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_employee_list,access_employee_list,model_employee_list,base.group_user,1,1,1,1
+access_emlpoyee.company,access_emlpoyee.company,model_emlpoyee.company,base.group_user,1,1,1,1
+access_employee.hobbies,access_employee.hobbies,model_employee.hobbies,base.group_user,1,1,1,1
+
