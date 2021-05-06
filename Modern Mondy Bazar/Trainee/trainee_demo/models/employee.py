@@ -15,6 +15,22 @@ class Student(models.Model):
     image = fields.Binary(string="Image", attachment=True)
     company_id=fields.Many2one('emlpoyee.company', string="company")
     hobbies_id=fields.Many2many('employee.hobbies')
+    python=fields.Integer(string="Python")
+    java=fields.Integer(string="Java")
+    c=fields.Integer(string="C")
+    total=fields.Integer(String="Total")
+    average=fields.Float()
+    total_compute=fields.Integer(compute="total_compute",store=True)
+
+ @api.onchange('python', 'java', 'c')
+    def _onchange_marks(self):
+        self.total=self.python + self.java + self.c  
+        self.average= self.total / 3
+
+    @api.depends('python', 'java', 'c')
+    def calculate_total(self):
+        for rec in self:
+             rec.total_compute=rec.python + rec.java + rec.c
 
 class company(models.Model):
 

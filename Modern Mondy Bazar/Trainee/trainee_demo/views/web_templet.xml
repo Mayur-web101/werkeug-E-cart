@@ -174,10 +174,25 @@
         </field>
     </record>
 
+     <record id="company_form_view" model="ir.ui.view">
+        <field name="name">company Form</field>
+        <field name="model">emlpoyee.company</field>
+        <field name="arch" type="xml">
+            <form string="company Form">
+                <sheet>
+                    <group>
+                        <field name="company_name" required="1"/><br/>
+                        <field name="Address"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
      <record id="company_action" model="ir.actions.act_window">
         <field name="name">company</field>
         <field name="res_model">emlpoyee_company</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">tree,form</field>
     </record>
 
 
