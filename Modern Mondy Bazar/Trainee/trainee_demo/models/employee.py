@@ -31,6 +31,11 @@ class Student(models.Model):
     def calculate_total(self):
         for rec in self:
              rec.total_compute=rec.python + rec.java + rec.c
+     
+     @api.depends('python', 'java', 'c')
+	   def calculate_total(self):
+	      for rec in self:
+	      rec.total_compute=rec.python + rec.java + rec.c
 
 class company(models.Model):
 

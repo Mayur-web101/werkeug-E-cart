@@ -1,0 +1,27 @@
+<odoo>
+
+
+    <record id="employee_tree_view" model="ir.ui.view">
+        <field name="name">employee List</field>
+        <field name="model">employee</field>
+        <field name="arch" type="xml">
+            <tree string="employee Details">
+                <field name="image" widget="image" height="50px" width="50px"/>
+                <field name="name"/>
+                <field name="mobile"/>
+                <field name="gender" widget="radio"/>
+                <field name="age"/>
+                <field name="hobbies" widget="many2many_tags"/>
+                <field name="designation"/>
+                <field name="salary"/>
+                <field name="python"/>
+                <field name="java"/>
+                <field name="c"/>
+                <field name="total"/>
+                <field name="average"/>
+                <field name="total_compute"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+</odoo>
