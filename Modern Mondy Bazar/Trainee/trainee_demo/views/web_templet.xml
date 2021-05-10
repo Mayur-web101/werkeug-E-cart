@@ -13,31 +13,59 @@
                 <field name="hobbies_id" widget="many2many">
                 <field name="designation"/>
                 <field name="salary"/>
+		<field name="python"/>
+                <field name="java"/>
+                <field name="c"/>
+                <field name="total"/>
+                <field name="average"/>
+                <field name="total_compute"/>
+                <field name="company_id"/>
             </tree>
         </field>
     </record>
 
-    <record id="employee_form_view" model="ir.ui.view">
+     <record id="employee_form_view" model="ir.ui.view">
         <field name="name">employee Form</field>
-        <field name="model">employee.list</field>
+        <field name="model">employee</field>
         <field name="arch" type="xml">
             <form string="employee Form">
                 <sheet>
-                    <group>
-                        <field name="image" widget="image"/>
-                        <field name="first_name" required="1"/><br/>
-                        <field name="last_name"/>
-			<field name="mobile"/>
-                        <field name="gender" widget="radio"/>
-                        <field name="age"/>
-                        <field name="hobbies_id" widget="many2many">
-                        <field name="designation"/>
-                        <field name="salary"/>
-                    </group>
+                    <notebook>
+                        <page string="Personal Detail">
+                            <group>
+                                <field name="name" required="1"/><br/>
+                            </group>
+                            <group>
+                                <field name="image" widget="image" height="50px" width="50px"/>
+                            </group>
+                            <group>
+                                <field name="mobile"/>
+                                <field name="gender" widget="radio"/>
+                                <field name="age"/>
+                            </group>
+                            <group>
+                                <field name="hobbies" widget="many2many_tags"/>
+                                <field name="designation"/>
+                                <field name="salary"/>
+                                <field name="company_id"/>
+                            </group>
+                        </page>
+                        <page string="Education Detail">
+                            <group>
+                                <field name="python"/>
+                                <field name="java"/>
+                                <field name="c"/>
+                                <field name="total"/>
+                                <field name="average"/>
+                                <field name="total_compute"/>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
     </record>
+
 
     <record id="student_view_calender" model="ir.ui.view">
         <field name="name">employee.Calendar</field>
@@ -85,8 +113,7 @@
         <field name="model">employee.list</field>
         <field name="arch" type="xml">
             <graph type="bar">
-                <field name="first_name" type="row"/>
-                <field name="last_name"/>
+                <field name="name"/>
                 <field name="mobile"/>
                 <field name="emp_dob" required='1'/>
                 <field name="age"/>
@@ -103,8 +130,7 @@
         <field name="model">employee.list</field>
         <field name="arch" type="xml">
             <pivot>
-                <field name="first_name" type="col"/>
-                <field name="last_name" type="row"/>
+                <field name="name"/>
                 <field name="mobile" type="row"/>
                 <field name="emp_dob" type="row" required='1'/>
                 <field name="age"/>
@@ -138,8 +164,7 @@
                             <div t-attf-class="oe_kanban_global_click">
                                 <div t-attf-class="oe_kanban_content">
                                     <field name="image" widget="image" height="250px" width="250px" /><br/>
-                                    First Name: <field name="first_name" type="col"/>
-                                    Last Name:<field name="last_name" type="row"/>
+                                    <field name="name"/>
                                     Mobile :<field name="mobile" type="row"/>
                                     Date of Birth:<field name="emp_dob" type="row" required='1'/>
                                     Age :<field name="age"/>
@@ -167,9 +192,9 @@
         <field name="model">emlpoyee_company</field>
         <field name="arch" type="xml">
             <tree string="company Details">
-                <field name="company_name"/>
-                <field name="Address"/>
-                <field name="employee_id"/>
+               <field name="name"/>
+                <field name="city"/>
+                <field name="record"/>
             </tree>
         </field>
     </record>
@@ -181,8 +206,9 @@
             <form string="company Form">
                 <sheet>
                     <group>
-                        <field name="company_name" required="1"/><br/>
-                        <field name="Address"/>
+                        <field name="name"/>
+		        <field name="city"/>
+		        <field name="record"/>
                     </group>
                 </sheet>
             </form>
@@ -197,7 +223,6 @@
 
 
     <menuitem id="employee_root_menu" name="employee"/>
-    <menuitem id="employee_menu" name="employee" sequence="1" parent="employee_root_menu" action="employee_action"/>
-    <menuitem id="employee_menu" name="employee" sequence="2" parent="employee_root_menu" action="employee_action"/>
-    <menuitem id="employee_menu" name="employee Detail" sequence="3" parent="employee_root_menu" action="employee_action"/>
+    <menuitem id="employee_menu" name="employee Detail" sequence="1" parent="employee_root_menu" action="employee_action"/>
+    <menuitem id="company" name="compnay Detail" sequence="2" action="company_action" parent="employee_root_menu"/>
 </odoo>

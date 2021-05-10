@@ -1,11 +1,12 @@
 from odoo import api, fields, models
 
 
-class Employee(models.TransientModel):
-	_name = 'employee.wizard'
+class employee_update(models.TransientModel):
+	_name = 'employee.update'
+	_description = "employee_update"
 
-	company_id=fields.Many2one('emlpoyee.company')
+	company_id = fields.Many2one("company",string="company_id")
 
-	def add_compnay(self):
- 		ids = self.context.get('active_ids')
- 		self.env['employee.list'].browse(ids).write({'company_id': self.company_id})
+	def update_compnay(self):
+		self.env['employee'].browse(self._context.get("active_ids")).update({"company_id":self.company_id})
+    	
