@@ -22,7 +22,19 @@ class Student(models.Model):
     average=fields.Float()
     total_compute=fields.Integer(compute="total_compute",store=True)
 
- @api.onchange('python', 'java', 'c')
+
+    @api.depends('birthday')
+    def compute_age(self):
+        today_date = datetime.date.today()
+        for emp in self:
+            if emp.birthday:
+                birthday = fields.Datetime.to_datetime(emp.birthday).date()
+                total_age = str(int((today_date - birthday).days / 365))
+                emp.age = total_age
+            else:
+                emp.age =  "Birthdate is not provided..."
+
+    @api.onchange('python', 'java', 'c')
     def _onchange_marks(self):
         self.total=self.python + self.java + self.c  
         self.average= self.total / 3
@@ -33,9 +45,9 @@ class Student(models.Model):
              rec.total_compute=rec.python + rec.java + rec.c
      
      @api.depends('python', 'java', 'c')
-	   def calculate_total(self):
-	      for rec in self:
-	      rec.total_compute=rec.python + rec.java + rec.c
+     def calculate_total(self):
+	for rec in self:
+	rec.total_compute=rec.python + rec.java + rec.c
 
 class company(models.Model):
 

@@ -1,8 +1,9 @@
 from odoo import api, fields, models
 
-class employee_inherit(models.model):
-	_name = 'employee_inherit'
+class employee_inherit(models.Model):
+	_name = 'employee.inherit'
 	_description = 'employee inheritance'
 	_inherit = 'employee'
 
-	update_new = fields.Char(string="Update New")
+	Address = fields.Char(string="Address")
+

@@ -4,7 +4,7 @@
     'category': 'test',
     'sequence': 5,
     'summary': 'trainee_demo',
-    'depends': ['base'],
+    'depends': ['website'],
 
     'description': """
             module for trainee
@@ -15,6 +15,8 @@
           'security/ir.model.access.csv',
         # 'data/student_data.xml',
          'views/web_templet.xml',
+	 'wizard/emoloyee_wizard.xml',
+         'report/employee_report.xml',
         # 'data/data.xml',
         # 'controllers/template.xml',
         # 'controllers/assests.xml',

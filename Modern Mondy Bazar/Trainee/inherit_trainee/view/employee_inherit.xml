@@ -1,27 +1,62 @@
 <odoo>
 
+    <record id="company_view_form" model="ir.ui.view">
+        <field name="name">company.form</field>
+        <field name="model">company</field>
+        <field name="inherit_id" ref="trainee_demo.compnay_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="record"/>
+            </xpath>
+        </field>
+    </record>
 
-    <record id="employee_tree_view" model="ir.ui.view">
-        <field name="name">employee List</field>
-        <field name="model">employee</field>
+
+    <record id="employee_tree_inherit" model="ir.ui.view">
+        <field name="name">inherit employee</field>
+        <field name="model">employee.inherit</field>
         <field name="arch" type="xml">
             <tree string="employee Details">
-                <field name="image" widget="image" height="50px" width="50px"/>
                 <field name="name"/>
                 <field name="mobile"/>
-                <field name="gender" widget="radio"/>
-                <field name="age"/>
-                <field name="hobbies" widget="many2many_tags"/>
                 <field name="designation"/>
                 <field name="salary"/>
-                <field name="python"/>
-                <field name="java"/>
-                <field name="c"/>
-                <field name="total"/>
-                <field name="average"/>
-                <field name="total_compute"/>
-                <field name="company_id"/>
+                <field name="Address"/>
             </tree>
         </field>
     </record>
+
+    <record id="employee_form_view" model="ir.ui.view">
+        <field name="name">inherit employee</field>
+        <field name="model">employee.inherit</field>
+        <field name="arch" type="xml">
+            <form string="employee Form">
+                <sheet>
+                    <notebook>
+                        <page string="Personal Detail">
+                            <group>
+                                <field name="name"/>
+                                <field name="mobile"/>
+                                <field name="designation"/>
+                                <field name="salary"/>
+                                <field name="Address"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="employee_inhe_action" model="ir.actions.act_window">
+            <field name="name">inherit employee</field>
+            <field name="res_model">employee.inherit</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="inherited_menu" name="Employee Inherited Data"/>
+
+    <menuitem id="employee_menu" name="Details" sequence="1" action="employee_inhe_action" parent="inherited_menu"/>
+
 </odoo>
+
+

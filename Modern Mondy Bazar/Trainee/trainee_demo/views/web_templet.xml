@@ -208,7 +208,6 @@
                     <group>
                         <field name="name"/>
 		        <field name="city"/>
-		        <field name="record"/>
                     </group>
                 </sheet>
             </form>
