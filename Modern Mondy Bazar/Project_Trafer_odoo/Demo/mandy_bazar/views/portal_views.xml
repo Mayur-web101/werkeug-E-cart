@@ -1,0 +1,13 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="portal_my_home_menu" name="Portal Menu" inherit_id="portal.portal_breadcrumbs" priority="1">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li style="margin-left: 15px; font-weight: bold;"><a>CROP_REGISTRATION</a></li>
+            <li style="margin-left: 15px; font-weight: bold;"><a>STAGE DETAIL</a></li>
+            <li style="margin-left: 15px; font-weight: bold;"><a>NEW ORDER</a></li>
+            <li style="margin-left: 15px; font-weight: bold;"><a>LOG OUT</a></li>
+        </xpath>
+    </template>
+</odoo>

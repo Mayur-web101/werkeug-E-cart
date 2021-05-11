@@ -1,0 +1,743 @@
+<odoo>
+
+    <template id="home">
+    <t t-call="web.layout">        
+        <t t-call="mandy_bazar.header"/>
+        <t t-call="mandy_bazar.dashboard"/>
+        <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template>
+
+
+<!-- ................................ home........................................-->
+
+   <template id="dashboard">
+        <div class="container">
+            <div class="mb-5 ml-5 mt-5">
+                <div class="row">
+                    <div class="col-sm-6 mt-5">
+                        <br></br>
+                        <h1><font color="orange">Moder Mandy Bazar</font></h1><br></br>
+                        <div class="col-sm-6">
+                        <img src="/mandy_bazar/static/images/img2.jpg" class="img-fluid mt-2 rounded zoom" alt="Responsive image"/>
+                        </div> 
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- ................................ header........................................-->
+    
+    <template id="header">
+        <t t-call="web.layout">        
+            <nav class="navbar navbar-dark bg-dark" style="border:1px solid #15420A;">
+                <div>
+                    <p><h3 id="h" class="text-white bg-dark">Modern Mondy Bazar</h3></p>
+                </div>
+
+                    <t t-if="request.session.get('user_name')">
+                        <t t-if="request.session.get('role') == 'farmer'">
+                            <ul class="nav nav-pills">
+                                <button type="button" onClick="location.href='/home'" class="btn btn-default navbar-btn mx-2">HOME</button>
+                                <button type="button" onClick="location.href='/farmer_crop_registartion'" class="btn btn-default navbar-btn mx-2">CROP REGISTRATION</button>
+                                <button type="button" onClick="location.href='/stage_activity'" class="btn btn-default navbar-btn mx-2">STAGE ACTIVITY</button>
+                                <button type="button" onClick="location.href='/order_list'" class="btn btn-default navbar-btn mx-2">ORDER LIST</button>
+                            </ul>
+                            <form class="navbar-form navbar-left">
+                              <button type="button" onClick="location.href='/home'" class="btn btn-default navbar-btn">LOGOUT</button>
+                            </form>
+                        </t>
+                        <t t-else="">
+                             <form class="navbar-form navbar-left">
+                                  <button type="button" onClick="location.href='/home'" class="btn btn-default navbar-btn mx-2">HOME</button>
+                                  <button type="button" onClick="location.href='/crop_list'"  class="btn btn-default navbar-btn mx-2">CROPE DETAIL</button>
+                                  <button type="button" onClick="location.href='/book'"  class="btn btn-default navbar-btn mx-2">BOOKING</button>
+                                  <button type="button" onClick="location.href='/client_list'" class="btn btn-default navbar-btn mx-2">REQUEST STATUS</button>
+                                  <button type="button" onClick="location.href='/home'" class="btn btn-default navbar-btn mx-2">LOGOUT</button>
+                            </form>
+                        </t> 
+                    </t>    
+                        <t t-else="">
+                            <form class="navbar-form navbar-left">
+                              <button type="button"  href="#" onClick="location.href='/login'"  class="btn btn-default mx-2">SIGN IN </button>
+                              <button type="button"  href="#" onClick="location.href='/signup'"  class="btn btn-default mx-2 ">SIGN UP</button>
+                            </form>
+                         </t>  
+            </nav>    
+        </t>
+</template>
+
+<!-- ................................ footer........................................-->
+    
+<template id="footer">
+    <t t-call="web.layout">        
+        <div>
+            <footer class="bg-dark text-center text-white">
+                <div class="container p-4">
+                    <section class="mb-4">
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-google"></i></a>
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-instagram"></i></a>
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-github"></i></a>
+                    </section>
+                    <section class="">
+                        <form action="">
+                            <div class="row d-flex justify-content-center">
+                            <div class="col-auto">
+                            <p class="pt-2">
+
+                            </p>
+                            </div>
+                            <div class="col-md-5 col-12">
+                            <div class="form-outline form-white mb-4">
+                                <input type="email" id="form5Example2" class="form-control" />
+                                <label class="form-label" for="form5Example2">Email address</label>
+                            </div>
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-outline-light mb-4">
+                                Subscribe
+                                </button>
+                            </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+                <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2020 Copyright:
+                </div>
+            </footer>
+        </div>
+    </t>
+</template>
+
+
+<!-- ................................Login........................................-->
+
+ <template id="login">
+        <t t-call="web.layout">        
+            <t t-call="mandy_bazar.header"/>
+            <div class="container mt-5">
+                <h1 class="mb-4">Login Here</h1>
+                <form action="/login_submit">
+                    <div class="form-group">
+                        <label for="email">Email address:</label>
+                        <input type="email" class="form-control" name="email" placeholder="Enter email" id="email" required="true"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="password" class="form-control" name="password" placeholder="Enter password" id="pwd" required="true"/>
+                    </div>
+                    <div class="text text-danger"><!-- <t t-esc="state.invalid"/> --></div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template>
+
+    <!-- ................................ signup farmer........................................-->
+
+    <template id="signup">
+        <t t-call="web.layout">        
+            <t t-call="mandy_bazar.header"/>
+                <div class="container mt-5">
+                    <h1>Sign Up for Farmer</h1>
+                    <div class="mb-5 mt-5">
+                        <label for="engineer_signup">Are you want to join as a client ? </label>
+                        <button type="button" class="btn btn-primary ml-2" onClick="location.href='/signup_client'">Client</button>
+                    </div>
+                    <form action="/signup_submit" method="POST">
+                        <div id="customer">
+                             <h2 class="mb-3">farmer Signup</h2>
+                            <div class="form-group">
+                                <label for="email">Email address:</label>
+                                <input type="email" class="form-control" placeholder="Enter email" name="email" id="email" required="true"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="fname">Name:</label>
+                                <input type="text" class="form-control" placeholder="Enter Name" name="fname" id="fname" required="true"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd">Password:</label>
+                                <input type="password" t-model="state.pwd" t-on-keyup="_onKeyUpPwd" class="form-control" placeholder="Enter password" name="password" id="pwd" required="true"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="repwd">Re-Enter Password:</label>
+                                <input type="password" t-model="state.repwd" t-on-keyup="_onKeyUpRePwd" class="form-control" placeholder="Enter password" name="repwd" id="repwd" required="true"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="mobile-no">Mobile No:</label>
+                                <input type="text" class="form-control" placeholder="Enter Mobile number" name="mobno" id="mobile-no" required="true"/>
+                            </div>
+                            <div class="text text-danger"><!-- <t t-esc="state.invalid_eml"/> --></div>
+                            <button type="submit" class="btn btn-primary ml-2" >Submit</button>
+                        </div>
+                    </form>
+                </div>     
+                <t t-call="mandy_bazar.footer"/>
+            </t>
+    </template>
+
+
+<!-- ................................ signup for client........................................-->
+
+
+    <template id="signup_client">
+        <t t-call="web.layout">        
+            <t t-call="mandy_bazar.header"/>
+                <div class="container mt-5">
+                    <h1>SignUp for Client</h1>
+                    <div class="mb-5 mt-5">
+                        <label for="engineer_signup">Are you want to join as a Farmer ? </label>
+                        <button type="button" class="btn btn-primary ml-2" onClick="location.href='/signup'">farmer</button>
+                    </div>
+                        <form action="/client_signup_submit" method="POST">
+                            <div id="engineer">
+                                <h2 class="mb-3">Client Signup</h2>
+                                <div class="form-group">
+                                    <label for="email">Email address:</label>
+                                    <input type="email" class="form-control" placeholder="Enter email" name="email" id="email" required="true"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fname">Name:</label>
+                                    <input type="text" class="form-control" placeholder="Enter Name" name="fname" id="fname" required="true"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pwd">Password:</label>
+                                    <input type="password" t-model="state.pwd" t-on-keyup="_onKeyUpPwd" class="form-control" placeholder="Enter password" name="password" id="pwd" required="true"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="repwd">Re-Enter Password:</label>
+                                    <input type="password" t-model="state.repwd" t-on-keyup="_onKeyUpRePwd" class="form-control" placeholder="Enter password" name="repwd" id="repwd" required="true"/>
+                                </div>
+                             <!--    <div t-if="state.pwmatch === false">
+                                    <h4>Password Does not match</h4>
+                                </div> -->
+                                <div class="form-group">
+                                    <label for="Address">Address:</label>
+                                    <input type="text" class="form-control" placeholder="Enter Address" name="address" id="add" required="true"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mobile-no">Mobile No:</label>
+                                    <input type="text" class="form-control" placeholder="Enter Mobile number" name="mobno" id="mobile-no" required="true"/>
+                                </div>
+                                <div class="form-group form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox"/> Remember me
+                                    </label>
+                                </div>
+                                <div class="text text-danger"><!-- <t t-esc="state.invalid_eml"/> --></div>
+                                <button type="submit" class="btn btn-primary ml-2">Submit</button>
+                            </div>
+                        </form>
+                </div> 
+            <t t-call="mandy_bazar.footer"/>   
+        </t>
+    </template>
+
+
+<!-- ................................ Home client........................................-->
+
+
+    <template id="home_client">
+        <t t-call="web.layout">        
+            <t t-call="mandy_bazar.header"/>
+                <div class="container">   
+                    <div class="mb-5 ml-5 mt-5">
+                        <div class="row">
+                            <div class="col-sm-6"><br></br>
+                                <h3><font color="orange">Client Home</font> </h3><br></br>
+                                <h1><font color="orange"></font></h1><br></br>
+                               
+                            </div>
+                            <div class="col-sm-6">
+                                <img src="/Engineer_as_a_service/static/images/eng.jpg" class="img-fluid mt-2 rounded zoom" alt="Responsive image"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template>
+
+
+
+
+
+
+<!-- ................................ farmer CROP REGISTRATION........................................-->
+
+
+
+
+ <template id="farmer_crop_registartion">
+        <t t-call="web.layout">        
+            <t t-call="mandy_bazar.header"/>
+                <div class="container my-4">   
+                <h2 align="center">CROP REGISTRATION</h2>
+                    <form action="/crop_registartion" method="POST">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Crop Name</label>
+                            <input type="hidden" name="farmer_id" t-att-value="request.session.get('user_id')" />
+                            <input type="text" name="cropname" class="form-control" id="exampleInputPassword1" placeholder="Crop Name" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Detail</label>
+                            <input type="text" name="detail" class="form-control" id="exampleInputPassword1" placeholder="Detail" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Place</label>
+                            <input type="text" name="place" class="form-control" id="exampleInputPassword1" placeholder="Place" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">QTY In KG</label>
+                            <input type="number" name="qty" class="form-control" id="exampleInputPassword1" placeholder="QTY" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Category</label>
+                            <input type="select" name="category" class="form-control" id="exampleInputPassword1" placeholder="Category" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">state</label>
+                            <input type="select" name="state" class="form-control" id="exampleInputPassword1" placeholder="state" required="true"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary">ADD</button>
+                    </form>
+                </div> 
+            <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template>
+
+
+<!-- ................................ stage Activity........................................-->
+
+     <template id="stage_activity">
+        <t t-call="web.layout">        
+            <t t-call="mandy_bazar.header"/>
+                <div class="container my-4">   
+                    <h2 align="center">STAGE ACTIVITY</h2>
+                    <form action="/stage_activity_add" method="POST">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Crop Name</label>
+                             <input type="hidden" name="farmer_id" t-att-value="request.session.get('user_id')" />
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="cropname" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1" class="mr-3">Select Stage</label>
+                              <select name="stage" class="form-select mb-3" aria-label="Default select example">
+                                  <option value="first">First</option>
+                                  <option value="second">Second</option>
+                                  <option value="three">Three</option>
+                                  <option value="fourth">Fourth</option>
+                                  <option value="fifth">Fifth</option>
+                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Start Date</label>
+                            <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="start_date" required="true"/>
+                            <small id="emailHelp" class="form-text text-muted"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">End Date</label>
+                            <input type="date" class="form-control" id="exampleInputPassword1" name="end_date" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Price</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="price" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Sequence</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="sequence" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Video</label>
+                            <input type="file" class="form-control" id="exampleInputPassword1" name="video"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Images</label>
+                            <input type="file" class="form-control" id="exampleInputPassword1" name="images"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Description</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="description" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Finish_note</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="Finish_note" required="true"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary">ADD</button>
+                    </form>
+                </div>
+            <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template>
+
+
+
+
+
+
+
+<!-- ................................ order list........................................-->
+
+    
+    <template id="order_list">
+        <t t-call="web.layout">        
+        <t t-call="mandy_bazar.header"/>
+            <div class="container">  
+                <div class="mt-5 mb-5">
+                <h1>ORDER LIST </h1> 
+                </div>
+                <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>CLIENT NAME</th>
+                            <th>ADDRESS</th>
+                            <th>MOBILE</th>
+                            <th>CROP NAME</th>
+                            <th>QTY</th>
+                            <th>DATE</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr> 
+                            <tr t-foreach="order_list" t-as="order">
+                                <td><t t-esc="order.client_id.name"/></td>
+                                <td><t t-esc="order.client_id.address"/></td>
+                                <td><t t-esc="order.client_id.mobile_no"/></td>
+                                <td><t t-esc="order.crop_id.crop_name"/></td>
+                                <td><t t-esc="order.qty"/></td>
+                                <td><t t-esc="order.date"/></td> 
+
+                                  <t t-if="order.order_status=='0'">
+                                        <td>Order rejected</td>
+                                    </t>
+                                    <t t-if="order.order_status=='1'">
+                                        <td>Pending</td>
+                                    </t>
+                                    <t t-if="order.order_status=='2'">
+                                        <td>Accepted</td>
+                                    </t>
+                                    <t t-if="order.order_status=='3'">
+                                        <td>Delivered</td>
+                                    </t>
+
+                                    <t t-if="order.order_status=='1'">
+                                        <td>
+                                            <a class="btn btn-success mr-4" t-att-href="'/job_status_change/%s/accept' % order.id">Accept</a>
+                                            <a class="btn btn-danger" t-att-href="'/job_status_change/%s/decline' % order.id">Decline</a>
+                                        </td>
+                                    </t>
+                                        <td>    
+                                            <t t-if="order.order_status=='2'">
+                                                Click here to change the status to delivered:
+                                                <a class="btn btn-danger" t-att-href="'/job_status_change/%s/delivered' % order.id">Delivered</a>
+                                            </t>
+                                        </td>
+                            </tr>
+
+                            <!-- <td><a class="btn btn-danger text-white" t-att-href="'/book/%s/%s' % (data.id,request.session.get('user_id'))">Book</a></td>
+                            <td><a class="btn btn-success" t-att-href="'/view_engineer_deatail/%s' % data.id">View</a></td> -->
+          
+                    
+                        </tr>
+                    </tbody>
+                </table>
+                </div> 
+            </div>
+        <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template>
+
+<!-- ................................ Order List........................................-->
+
+
+   <!-- <template id="order_list">
+        <t t-call="web.layout">        
+        <t t-call="mandy_bazar.header"/>
+            <div class="container">  
+                <div class="mt-5 mb-5">
+                <h1>ORDER LIST </h1> 
+                </div>
+                <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>CLIENT NAME</th>
+                            <th>ADDRESS</th>
+                            <th>MOBILE</th>
+                            <th>CROP NAME</th>
+                            <th>QTY</th>
+                            <th>DATE</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr> 
+                            <tr t-foreach="order_list" t-as="order">
+                                <td><t t-esc="order.client_id.name"/></td>
+                                <td><t t-esc="order.client_id.address"/></td>
+                                <td><t t-esc="order.client_id.mobile_no"/></td>
+                                <td><t t-esc="order.crop_id.crop_name"/></td>
+                                <td><t t-esc="order.qty"/></td>
+                                <td><t t-esc="order.date"/></td> 
+
+                                  <t t-if="order.order_status=='0'">
+                                        <td>Order rejected</td>
+                                    </t>
+                                    <t t-if="order.order_status=='1'">
+                                        <td>Pending</td>
+                                    </t>
+                                    <t t-if="order.order_status=='2'">
+                                        <td>Accepted</td>
+                                    </t>
+                                    <t t-if="order.order_status=='3'">
+                                        <td>Delivered</td>
+                                    </t>
+
+                                    <t t-if="order.order_status=='1'">
+                                        <td>
+                                            <a class="btn btn-success mr-4" t-att-href="'/job_status_change/%s/accept' % order.id">Accept</a>
+                                            <a class="btn btn-danger" t-att-href="'/job_status_change/%s/decline' % order.id">Decline</a>
+                                        </td>
+                                    </t>
+                                        <td>    
+                                            <t t-if="order.order_status=='2'">
+                                                Click here to change the status to delivered:
+                                                <a class="btn btn-danger" t-att-href="'/job_status_change/%s/delivered' % order.id">Delivered</a>
+                                            </t>
+                                        </td>
+                            </tr> -->
+
+                            <!-- <td><a class="btn btn-danger text-white" t-att-href="'/book/%s/%s' % (data.id,request.session.get('user_id'))">Book</a></td>
+                            <td><a class="btn btn-success" t-att-href="'/view_engineer_deatail/%s' % data.id">View</a></td> -->
+          
+                    
+            <!--             </tr>
+                    </tbody>
+                </table>
+                </div> 
+            </div>
+        <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template> -->
+
+
+
+
+
+
+<!-- ................................ client side  
+
+CROP DETAIL........................................-->
+
+
+
+
+<template id="crop_list">
+        <t t-call="web.layout">        
+        <t t-call="mandy_bazar.header"/>
+            <div class="container">  
+                <div class="mt-5 mb-5">
+                   <h1>CROP LIST </h1> 
+                </div>
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>CROP ID</th>
+                                <th>FARMER ID</th>
+                                <th>CROP NAME</th>
+                                <th>DETAIL</th>
+                                <th>PLACE</th>
+                                <th>EXPECTED QTY</th>
+                                <th>CATEGARY</th>
+                                <th>STATE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <t t-foreach="state.data" t-as="i"> -->
+                            <tr t-foreach="crop_list" t-as="crop">
+                                        <td><t t-esc="crop.id"/></td>
+                                        <td><t t-esc="crop.farmer_id"/></td>
+                                        <td><t t-esc="crop.crop_name"/></td>
+                                        <td><t t-esc="crop.detail"/></td>
+                                        <td><t t-esc="crop.place"/></td>
+                                        <td><t t-esc="crop.expected_qty"/></td>
+                                        <td><t t-esc="crop.category"/></td>
+                                        <td><t t-esc="crop.state"/></td>
+                                         <td><a class="btn btn-danger text-white" t-att-href="'/book/%s/%s' % (crop.id,request.session.get('user_id'))">Book</a></td> 
+                                        <td><a class="btn btn-success" t-att-href="'/view_stage_deatail/%s' % crop.id">View</a></td>
+                                    </tr>
+                                <!-- </t> -->
+                        </tbody>
+                    
+                    </table>
+                </div> 
+            </div>
+            <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template>
+
+
+
+<!-- ................................ 
+stage detail........................................-->
+
+
+     <template id="view_stage_deatail">
+        <t t-call="web.layout">        
+        <t t-call="mandy_bazar.header"/>
+            <div class="container">  
+                <div class="mt-5 mb-5">
+                   <h1>STAGE DETAIL </h1> 
+                </div>
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>CROP NAME</th>
+                                <th>STAGE DETAIL</th>
+                                <th>START DATE</th>
+                                <th>END DATE</th>
+                                <th>PRINCE</th>
+                                <th>SEQUENCE</th>
+                                <th>DESCRIPTION</th>
+                                <th>FINISH NOTE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr t-foreach="stage_list" t-as="stage">
+                                        <td><t t-esc="stage.crop_name"/></td>
+                                        <td><t t-esc="stage.stage_detail"/></td>
+                                        <td><t t-esc="stage.start_date"/></td>
+                                        <td><t t-esc="stage.end_date"/></td>
+                                        <td><t t-esc="stage.price"/></td>
+                                        <td><t t-esc="stage.sequence"/></td>
+                                        <td><t t-esc="stage.description"/></td>
+                                        <td><t t-esc="stage.finish_note"/></td>
+                                         <td><a class="btn btn-danger text-white" t-att-href="'/book/%s/%s' % (stage.id,request.session.get('user_id'))">Book</a></td> 
+                                        <!-- <td><a class="btn btn-success" t-att-href="'/view_stage_deatail/%s' % crop.id">View</a></td -->>
+                                    </tr>
+                                <!-- </t> -->
+                        </tbody>
+                    
+                    </table>
+                </div> 
+            </div>
+            <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template>
+
+
+
+
+
+
+<!-- ................................ 
+crop Book........................................-->
+
+    <template id="book">
+        <t t-call="web.layout">        
+            <t t-call="mandy_bazar.header"/>
+            <div class="container mt-5">
+                <h1 class="mb-4">BOOK CROP</h1>
+                <form  t-attf-action="/book_crop/{{crop_id}}/{{farmer_id}}">
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">QTY</label>
+                            <input type="number" name="qty" class="form-control" id="exampleInputPassword1" placeholder="QTY" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">DATE</label>
+                            <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="b_date" required="true"/>
+                            <small id="emailHelp" class="form-text text-muted"></small>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+
+                </form>
+            </div>
+            <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template>
+
+
+
+<!-- ................................ 
+Client order status........................................-->
+
+ 
+
+
+    <template id="client_list">
+        <t t-call="web.layout">        
+        <t t-call="mandy_bazar.header"/>
+            <div>
+                <h4 class="container mt-3 mb-3">Order Detail</h4>
+            </div>
+            <div class="d-flex justify-content-center mt-5">
+                <div class="card text-center" style="width:35em;">
+                    <div class="card-header bg-dark text-white">
+                        order
+                    </div>
+                    <div class="card-body">
+                        <table style="width:100%">
+                        <t t-foreach="client_list" t-as="data">
+                            <tr>
+                                <th> CLIENT NAME:</th>
+                                <td><t t-esc="data.client_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <th>CROP NAME:</th>
+                                <td><t t-esc="data.crop_id.crop_name"/></td>
+                            </tr>
+                            <tr>
+                                <th>QTY:</th>
+                                <td><t t-esc="data.qty"/></td>
+                            </tr>
+                            <tr>
+                                <th>DATE:</th>
+                                <td><t t-esc="data.date"/></td>
+                            </tr>
+                            <tr>
+                                <t t-if="data.order_status=='0'">
+                                    <td>Order Status</td>
+                                    <td>Order rejected</td>
+                                </t>
+                                <t t-if="data.order_status=='1'">
+                                    <td>Order Status</td>
+                                    <td>Pending</td>
+                                </t>
+                                <t t-if="data.order_status=='2'">
+                                    <td>Order Status</td>
+                                    <td>Accepted</td>
+                                </t>
+                                <t t-if="data.order_status=='3'">
+                                    <td>Order Status</td>
+                                    <td>Delivered</td>
+                                </t>
+                            </tr>
+                        </t>
+                        </table>
+                    </div>
+                    <div class="card-footer bg-dark texxt-white text-muted">
+                    </div>
+                </div>
+            </div>
+        <t t-call="mandy_bazar.footer"/>
+        </t>
+    </template>
+
+</odoo>
+
+
+
+
+
