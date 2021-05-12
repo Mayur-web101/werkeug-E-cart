@@ -1,0 +1,78 @@
+<odoo>
+	<template id="emp_template">
+		<t t-call="website.layout">
+			<h1>Employee Detail</h1>
+			<a href="/create_employee" class="btn btn-primary">Create</a>
+			<t t-call="trainee_demo.employee_table"/>
+		</t>
+	</template>
+
+	<template id="employee_table">
+		<table>
+			<tr>
+				<th>Name</th>
+				<th>mobile</th>
+				<th>Gender</th>
+				<th>Birthday</th>
+				<th>age</th>
+				<th>designation</th>
+				<th>salary</th>
+				<th>hobbies</th>
+				<th>python</th>
+				<th>java</th>
+				<th>c</th>
+				<th>total</th>
+				<th>average</th>
+				<th>total_compute</th>
+				<th>Company Name</th>
+			</tr>
+			<tr t-foreach="employees" t-as="emplo">
+				<td><t t-esc="emplo.name"/></td>
+				<td><t t-esc="emplo.mobile"/></td>
+				<td><t t-esc="emplo.gender"/></td>
+				<td><t t-esc="emplo.birthday"/></td>
+				<td><t t-esc="emplo.age"/></td>
+				<td><t t-esc="emplo.designation"/></td>
+				<td><t t-esc="emplo.salary"/></td>
+				<td><t t-esc="emplo.hobbies"/></td>
+				<td><t t-esc="emplo.python"/></td>
+				<td><t t-esc="emplo.java"/></td>
+				<td><t t-esc="emplo.c"/></td>
+				<td><t t-esc="emplo.total"/></td>
+				<td><t t-esc="emplo.average"/></td>
+				<td><t t-esc="emplo.total_compute"/></td>
+				<td><t t-esc="emplo.company_id.name"/></td>
+				<td><a class="btn" t-att-href="'/delete/%s' % emplo.id">DELETE</a></td>
+			</tr>
+		</table>
+	</template>
+
+	<template id="create_employee">
+		<t t-call="website.layout">
+		<h2>employee form</h2>
+			  <form action="/submit_form">
+                <div>
+                    <div>Name: <input type="text" name="name"/></div><br/>
+                    <div>mobile: <input type="text" name="mobile"/></div><br/>
+                    <div>Gender<input type="radio" id="male" name="gender" value="male"/>
+                    <input type="radio" id="female" name="gender" value="female"/></div><br/>
+                    <div>company :
+                            <select name="company_id" id="company">
+                                <t t-foreach="company" t-as="comp">
+                                    <option t-att-value="comp.id"><t t-esc="comp.name"/></option>
+                                </t>
+                            </select>
+                    </div><br/>
+                    <div>DOB: <input type="date" name="birthday"/></div><br/>
+                    <div>Age: <input type="text" name="age"/></div><br/>
+                    <div>salary : <input type="text" name="salary"/></div><br/>
+                    <div>python: <input type="text" name="python"/></div><br/>
+                    <div>java: <input type="text" name="java"/></div><br/>
+                    <div>c: <input type="text" name="c"/></div><br/>
+                    <div><button type="submit">submit</button></div>
+                </div>
+            </form>
+		</t>
+	</template>
+</odoo>
+

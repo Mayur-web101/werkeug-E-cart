@@ -45,5 +45,34 @@
             </t>
         </t>
     </template>
+	
+   <report
+    id="report_employee_primary"
+    model="employee"
+    string="Employee Report Primary"
+    name="trainee_demo.inherit_report_employee_view_primary"
+    file="trainee_demo.report_employee"
+    report_type="qweb-pdf" 
+    attachment_use="True"/>
+    <template id="inherit_report_student_view" inherit_id="report_employee_view">
+        <xpath expr="//div[hasclass('page')]" position="inside">
+        <h2>Inside</h2>
+        </xpath>
+        <xpath expr="(//th)[1]" position="after">
+        <th scope="col">Gender</th>
+        </xpath>
+        <xpath expr="(//td)[1]" position="after">
+        <td align='center'><span t-field="doc.gender"/></td>
+        </xpath>
+    </template>
+
+    <template id="inherit_report_employee_view_primary" inherit_id="report_employee_view" primary="True">
+        <xpath expr="(//th)[1]" position="after">
+        <th scope="col">name</th>
+        </xpath>
+        <xpath expr="(//td)[1]" position="after">
+        <td align='center'><span t-field="doc.name"/></td>
+        </xpath>
+    </template>
 
 </odoo>
